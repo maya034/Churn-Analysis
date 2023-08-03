@@ -5,68 +5,72 @@ Predict behavior to retain customers. You can analyze all relevant customer data
 
 
 
-In addition to the key wildfire attributes mentioned earlier, there are several other relevant attributes that can provide valuable context and insights about the wildfires. These attributes help in understanding the factors influencing the severity, behavior, and impact of wildfires. Here are some additional wildfire attributes to consider:
+import pandas as pd
+from uszipcode import SearchEngine
 
-1. **Fire Cause:** The probable cause of the wildfire, such as lightning, human activity (e.g., campfires, arson, equipment sparks), or accidental causes (e.g., power lines, vehicle accidents). Understanding the cause can help assess the preventability and potential liability associated with the wildfire.
+class CountyLocator:
+    def __init__(self, excel_file):
+        self.excel_data = pd.read_excel(excel_file)
+        self.search = SearchEngine() # Using simple_zipcode to reduce data size
 
-2. **Fire Spread Rate:** The rate at which the wildfire spreads across the landscape. Faster spread rates can lead to more rapid and extensive damage.
+    def get_county_from_address(self, address):
+        try:
+            location_info = self.geolocator.geocode(address, exactly_one=True)
+        except Exception as e:
+            return f"Error: {e}"
 
-3. **Fuel Type:** The type of vegetation or materials serving as fuel for the wildfire. Different fuel types can burn at varying intensities, affecting the fire's behavior.
+        if not location_info:
+            return "Location not found."
 
-4. **Fire Containment Status:** Whether the wildfire is contained or still actively spreading. This attribute helps identify ongoing threats to properties in the affected areas.
+        county = location_info.raw.get("address", {}).get("county")
+        if county:
+            return county
+        else:
+            return "County information not available for this location."
 
-5. **Fire Weather Conditions:** Meteorological conditions during the wildfire, such as temperature, humidity, wind speed, and direction. Weather plays a significant role in wildfire behavior.
+    def get_county_from_coords(self, latitude, longitude):
+        try:
+            zipcode = self.search.by_coordinates(latitude, longitude, radius=10, returns=1)
+            if zipcode:
+                county = zipcode[0].county
+                if county:
+                    return county
+        except Exception as e:
+            return f"Error: {e}"
 
-6. **Fire Danger Rating:** A numerical or qualitative rating that indicates the potential for fire ignition and spread under specific weather and fuel conditions.
+        return "County information not available for this location."
 
-7. **Fire Suppression Efforts:** Information on firefighting resources deployed, containment strategies used, and the effectiveness of suppression efforts.
+    def get_county_info_based_on_input(self, address=None, latitude=None, longitude=None):
+        if address:
+            return self.get_county_from_address(address)
+        elif latitude is not None and longitude is not None:
+            return self.get_county_from_coords(latitude, longitude)
+        else:
+            return "Not valid. Please provide either an address or both latitude and longitude."
 
-8. **Burned Area Extent:** The total area affected by the wildfire. This attribute helps gauge the overall scale of the event.
+    def get_score_from_county(self, county_output):
+        if county_output and county_output != "County information not available for this location.":
+            matched_row = self.excel_data[self.excel_data['county'] == county_output]
 
-9. **Evacuation Orders:** Whether evacuation orders were issued and their scope. This information highlights the level of threat to properties and residents.
+            if not matched_row.empty:
+                total_score = matched_row['total_score'].values[0]
+                score_category = matched_row['score_category'].values[0]
 
-10. **Structures Destroyed/Damaged:** The number and type of structures (homes, buildings, etc.) destroyed or damaged by the wildfire.
+                return total_score, score_category
 
-11. **Elevation and Topography:** The elevation of the wildfire's location and the surrounding topography. Terrain can influence fire behavior and spread.
+        return None, None
 
-12. **Fire Severity Mapping:** Detailed information on different fire severity zones within the wildfire perimeter, such as high-severity burn areas versus low-severity areas.
+# Test examples
+excel_file = "F:\CARDIO\Book1.xlsx"  # Replace with the path to your Excel file
+county_locator = CountyLocator(excel_file)
 
-13. **Historical Fire Frequency:** Information about the frequency of wildfires in the area over time. This can provide context for understanding the region's wildfire risk.
+address = "1600 Amphitheatre Parkway, Mountain View, CA"
+county_output = county_locator.get_county_info_based_on_input(address=address)
 
-14. **Wildlife Impact:** The impact of the wildfire on wildlife, including habitat destruction and potential species endangerment.
+total_score, score_category = county_locator.get_score_from_county(county_output)
 
-15. **Air Quality Index (AQI):** Data on air quality during and after the wildfire event, as wildfires can significantly affect air pollution levels.
-
-Including these additional attributes in your wildfire dataset can enhance the depth of analysis and allow you to explore relationships between wildfire characteristics and property losses more comprehensively. Keep in mind that data availability may vary based on the sources and regions, so it's essential to utilize reliable data sources and conduct thorough data validation during the dataset creation Calculating the loss value of a property affected by a wildfire involves estimating the financial cost of damages incurred by the property due to the fire. The specific approach to calculate the loss value may vary depending on the available data and the level of detail required. Here are some common methods for estimating the loss value of a property:
-
-1. **Assessed Value Before and After the Wildfire:**
-   - Obtain the assessed value of the property before the wildfire occurred (pre-fire value) from property tax records or relevant databases.
-   - After the wildfire, assess the property again (post-fire value) based on its current condition. This may involve professional appraisals or assessments by insurance adjusters.
-   - Calculate the difference between the pre-fire value and the post-fire value to determine the loss value of the property.
-
-2. **Insurance Claims Data:**
-   - If available, use data on insurance claims filed for properties affected by the wildfire.
-   - The insurance claims data should include the claimed amount for each property damaged by the fire.
-   - Sum up the claimed amounts to get the total loss value for all properties.
-
-3. **Historical Data and Loss Ratios:**
-   - Analyze historical data from previous wildfires with similar characteristics (e.g., size, severity, location).
-   - Calculate loss ratios, which represent the proportion of property value typically lost in such wildfires.
-   - Apply the loss ratio to the assessed value of the affected properties to estimate the loss value.
-
-4. **Property Replacement Cost:**
-   - Estimate the cost to replace or rebuild the property to its pre-fire condition.
-   - This method is common for properties that are entirely destroyed by the wildfire.
-
-5. **Market Data and Sales Comparisons:**
-   - If post-fire assessments are unavailable, consider analyzing recent sales data of similar properties in the area unaffected by the wildfire.
-   - Use this data to estimate the potential decline in property values in the affected region, and apply that estimate to the property's pre-fire value.
-
-6. **Satellite Imagery and AI:**
-   - Advanced technologies like satellite imagery and artificial intelligence can be used to assess the extent of damage to properties based on high-resolution images.
-   - AI algorithms can be trained to identify damaged structures and estimate the level of destruction, which can then be converted into monetary values.
-
-Please note that accurately estimating property loss values can be challenging, as it requires reliable and detailed data, especially for properties that have undergone partial damage or are in regions with varying degrees of destruction. Additionally, property loss estimates may also be influenced by factors like insurance coverage, building materials, and local regulations. As such, it is essential to use multiple data sources and consult with experts in property assessment and insurance claims to improve the accuracy of the loss value calculations.
-
-
-
+if total_score and score_category:
+    print(f"Total Score: {total_score}")
+    print(f"Score Category: {score_category}")
+else:
+    print("County not found in the Excel data or no match found.")
