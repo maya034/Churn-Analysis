@@ -8,75 +8,173 @@ Thank you for providing the abstract of the paper. Based on the abstract, I can 
 https://openacttexts.github.io/LDACourse1/index.html#why-loss-data-analytics
 
 
-import pandas as pd
-from uszipcode import SearchEngine
 
-class CountyLocator:
-    def __init__(self, excel_file):
-        self.excel_data = pd.read_excel(excel_file)
-        self.search = SearchEngine()  # Using simple_zipcode to reduce data size
 
-    def get_county_from_address(self, address):
-        try:
-            location_info = self.search.by_full_address(address)
-        except Exception as e:
-            return f"Error: {e}"
 
-        if not location_info:
-            return "Location not found."
+0.959
+0.959
+0.959
+0.959
+0.959
+0.959
+0.959
+0.959
+0.959
+0.959
+0.959
+0.959
+0.959
+0.959
+0.959
+0.959
+0.959
+0.959
+0.959
+0.959
+0.959
+0.959
+0.959
+0.959
+0.959
+0.959
+0.959
+0.959
+0.959
+0.959
+0.9612
+0.9634
+0.9656
+0.9678
+0.9700
+0.9722
+0.9744
+0.9766
+0.9788
+0.9810
+0.9832
+0.9854
+0.9876
+0.9898
+0.9920
+0.9942
+0.9964
+0.9986
+1.0008
+1.0030
+1.0052
+1.0074
+1.0096
+1.0118
+1.0140
+1.0162
+1.0184
+1.0206
+1.0228
+1.0250
+1.0272
+1.0294
+1.0316
+1.0338
+1.0360
+1.0382
+1.0404
+1.0426
+1.0448
+1.0470
+1.0492
+1.0514
+1.0536
+1.0558
+1.0580
+1.0602
+1.0624
+1.0646
+1.0668
+1.0690
+1.0712
+1.0734
+1.0756
+1.0778
+1.0800
+1.0822
+1.0844
+1.0866
+1.0888
+1.0910
+1.0932
+1.0954
+1.0976
+1.0998
+1.1020
+1.1042
+1.1064
+1.1086
+1.1108
+1.1130
+1.1152
+1.1244
+1.1336
+1.1428
+1.1520
+1.1612
+1.1704
+1.1796
+1.1888
+1.1980
+1.2072
+1.2159
+1.2246
+1.2333
+1.2420
+1.2507
+1.2594
+1.2681
+1.2768
+1.2855
+1.2942
+1.3029
+1.3116
+1.3203
+1.3290
+1.3377
+1.3464
+1.3551
+1.3618
+1.3685
+1.3752
+1.3819
+1.3886
+1.3953
+1.4020
+1.4087
+1.4154
+1.4221
+1.4288
+1.4355
+1.4422
+1.4489
+1.4556
+1.4623
+1.4690
+1.4757
+1.4824
+1.4891
+1.4958
+1.5025
+1.5092
+1.5159
+1.5226
+1.5293
+1.5360
+1.5427
+1.5494
+1.5561
+1.5628
+1.5695
+1.5762
+1.5829
+1.5896
+1.5908
+1.5920
+1.5932
 
-        county = location_info[0].county
-        if county:
-            return county
-        else:
-            return "County information not available for this location."
-    
-    
-    def get_county_from_coords(self, latitude, longitude):
-        try:
-            zipcode = self.search.by_coordinates(latitude, longitude, radius=10, returns=1)
-            if zipcode:
-                county = zipcode[0].county
-                if county:
-                    return county
-        except Exception as e:
-            return f"Error: {e}"
-
-        return "County information not available for this location."
-
-    def get_county_info_based_on_input(self, address=None, latitude=None, longitude=None):
-        if address:
-            return self.get_county_from_address(address)
-        elif latitude is not None and longitude is not None:
-            return self.get_county_from_coords(latitude, longitude)
-        else:
-            return "Not valid. Please provide either an address or both latitude and longitude."
-
-    def get_score_from_county(self, county_output):
-        if county_output and county_output != "County information not available for this location.":
-            matched_row = self.excel_data[self.excel_data['county'] == county_output]
-
-            if not matched_row.empty:
-                total_score = matched_row['total_score'].values[0]
-                score_category = matched_row['score_category'].values[0]
-
-                return total_score, score_category
-
-        return None, None
-
-    # Rest of the class remains unchanged...
-
-# Test examples
-excel_file = "F:\CARDIO\Book1.xlsx"  # Replace with the path to your Excel file
-county_locator = CountyLocator(excel_file)
-
-address = "1600 Amphitheatre Parkway, Mountain View, CA"
-county_output = county_locator.get_county_info_based_on_input(address=address)
-
-total_score, score_category = county_locator.get_score_from_county(county_output)
-
-if total_score and score_category:
-    print(f"Total Score: {total_score}")
-    print(f"Score Category: {score_category}")
-else:
-    print("County not found in the Excel data or no match found.")
