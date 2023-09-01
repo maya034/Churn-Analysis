@@ -208,3 +208,55 @@ initial_mapping = {i: 0.959 - (i * 0.0022) for i in range(len(initial_buckets))}
 # Create a mapping dictionary for extended buckets
 extended_mapping = {i + len(initial_buckets): value for i, value in enumerate([
     1.1244, 1.1336, 1.1428, 1.1520, 1.1612, 1.1704, 1.1796, 1.188
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+   https://mail-attachment.googleusercontent.com/attachment/u/0/?ui=2&ik=9a92c97c12&attid=0.1&permmsgid=msg-f:1775807566243792245&th=18a4ef92a7698575&view=att&disp=inline&realattid=f_lm0375pq0&saddbat=ANGjdJ_P6x6rz_uTpI-nU6PMlScUxaV3C_wB-Lvt8ZyIIFvO3mpdKNPpzjcyNn_x074FNXMJHkdv8nG630spfl0tSFavqbCVqODb9P06Y5mf9_gStS8gvlfYVz7z_wpCinDy71vVPahQB-CyZIJYhSA5HVeV2jpFCoyRmWWrr00su_fcXC9zI78u_8ituxbSjUbjbvCRBAK1I0Ohdk7yzys7DEyn1wRZIesRdGddXPGOakBt6dGBs6ZVMg4BMqdFXGZxFCohXhraQAaj-BbeefT5SF-2mpZhZKg6_Mne-qnlSb-arUZeeSDalDPVQBcew63HvQBa9kMkDQtQqbhhgYPqtE1ydFGMZ6kBhyj2_73cdTzTLLIhV-Pcz1ms7AQ2R2tH6fZPhhI6lrvI3P_G4XyLPWHR-N0KUcVvn6AnrwvTaRih0CbTKcM0heSiJ4Lcz5ELKPK5Vnl3ULVWl5Uy6hlzx3ZpE9UL5dRi9oFlNXO2fuxWVyg4GMw_oT9eQvUsnomWP38O69PxsjF2m5vaYmXJ6mtaZQKaNMMJv_Sqq4NGvyXB-duBj91bDh_RivxKrg3Za2j5BFmcIjjZ2dG4jd7a1xSRC6mcVyhL56dD6Fr6c0kHLIxPrPcqqcU3yUZGv1QZBjyCYI-1yJtw14UhQzx156qW1PRErwM00W1FB3ZY-OIn3TbW06zkIM1mvHAl5BGcL32ZGvxr5rHlkBJTi3OpIl0PAAFE9JhdxDc3Tg5CQkGxxSvyCtX83ta9-ldDQX8qbk6Q4tcgzEy6IpuiJ29RYpvv7uFFcMlwXBUaFf-YQO8bQJFFdN3zXs3FkYIrkh4WZQFy0Lj3hXqXhjlHVwCn8MNqJqhyKLY0G7QAbQE0NeAcyro_C61ZwPvwhCchAt_Xw7v0DmkQJL5oo0Ey2Z59HhbvmHRZhBfSOQBdktEpKOyUBZoCnb2pfvs--br63CPsI1ynUTCm4osEjfpoqsiTuUTLS-hnKIjFTKZBhrWeXo1H28o8DptZYvMnslASI6Yx7xdtnqsLMBAZNQsi
+
+
+
+
+
+   https://github.com/LFCFireLab/FireLossRate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
