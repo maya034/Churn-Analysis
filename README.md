@@ -254,6 +254,64 @@ https://www.sciencedirect.com/science/article/pii/S2215016123002352
 
 
 
+https://www.corelogic.com/intelligence/how-to-predict-fire-insurance-losses/
+
+
+
+Certainly, I can provide more detailed information on common data sources for wildfire loss data:
+
+1. **Insurance Claims Data**: Insurance companies maintain detailed records of claims filed by policyholders for losses due to wildfires. These data sources are typically internal and may not be publicly accessible.
+
+2. **Government Agencies**: Government agencies like FEMA (Federal Emergency Management Agency) and state-level emergency management organizations often collect and maintain data on wildfire events and their impacts. You can find some of this data on their respective websites.
+
+   - [FEMA Disaster Declarations](https://www.fema.gov/disasters)
+   - State-specific agencies (e.g., California's [Cal Fire](https://www.fire.ca.gov/), or [USDA Forest Service](https://www.fs.usda.gov/))
+
+3. **Satellite Imagery**: Organizations like NASA and NOAA provide access to satellite imagery, which can be used to monitor and assess the extent of wildfires. You can find this data on their respective websites.
+
+   - [NASA Earthdata](https://earthdata.nasa.gov/)
+   - [NOAA's National Centers for Environmental Information](https://www.ncei.noaa.gov/)
+
+4. **Climate and Weather Data**: Historical weather and climate data can help assess wildfire risk. The National Weather Service (NWS) and the National Oceanic and Atmospheric Administration (NOAA) are good sources for such data.
+
+   - [National Weather Service](https://www.weather.gov/)
+   - [NOAA Climate Data Online (NCDC)](https://www.ncdc.noaa.gov/)
+
+5. **Geospatial Data**: Geographic Information Systems (GIS) data can provide information on the geography of wildfire-prone areas. You can explore GIS data from sources like:
+
+   - [USGS Earth Explorer](https://earthexplorer.usgs.gov/)
+   - [GIS Data from State and Local Governments](varies by location)
+
+6. **Historical Records**: Historical data on previous wildfires, their impacts, and losses can sometimes be found in research reports, academic publications, and historical archives.
+
+Please note that access to these data sources may vary, and some data may require permissions or agreements for use. Additionally, specific data sources used by individual companies may not be publicly disclosed due to proprietary considerations, so reaching out to those companies directly may be necessary for more detailed information.
+
+
+
+Estimating property-wise losses due to wildfires typically involves a combination of data sources and methodologies. Here are some of the data sources commonly used for this purpose:
+
+1. **Insurance Company Records**: Insurance companies maintain detailed records of insured properties, including their values and the extent of coverage. These records are a primary source for estimating property-specific losses.
+
+2. **Assessment and Appraisal Data**: Property assessments and appraisals conducted by government agencies or private firms provide information about the value of properties. This data can be used to estimate property losses.
+
+3. **Geospatial Data**: Geographic Information Systems (GIS) data, such as parcel maps and land-use data, can help identify the location and characteristics of individual properties in wildfire-prone areas.
+
+4. **Remote Sensing and Satellite Imagery**: High-resolution satellite imagery can be used to assess property damage after a wildfire event. This data can help identify which properties were affected and to what extent.
+
+5. **Census Data**: Census data provides demographic information about populations in wildfire-prone areas. This information can be used to estimate the number of properties at risk and their potential value.
+
+6. **Historical Data**: Historical data on previous wildfire events and their impacts on specific properties can inform loss estimations for future events.
+
+7. **Property Records**: Publicly available property records, including tax assessment data, can provide information on property values and ownership.
+
+8. **Insurance Claims Data**: After a wildfire event, insurance claims data specific to individual properties can be used to verify and refine loss estimates.
+
+9. **Wildfire Behavior Models**: Advanced modeling techniques that simulate wildfire behavior, taking into account factors like wind patterns, terrain, and fuel load, can help estimate property-specific losses.
+
+10. **Field Surveys**: Post-wildfire field surveys by experts and adjusters provide on-the-ground information about property damage and losses.
+
+Please note that the availability and accuracy of these data sources can vary by location and may not always be publicly accessible. Insurance companies and government agencies often combine several of these sources to create comprehensive estimates of property-wise losses due to wildfires. Access to proprietary data held by insurance companies may require direct contact with those companies or partnerships between data providers and researchers.
+
 
 
 
