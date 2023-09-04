@@ -313,7 +313,7 @@ Estimating property-wise losses due to wildfires typically involves a combinatio
 Please note that the availability and accuracy of these data sources can vary by location and may not always be publicly accessible. Insurance companies and government agencies often combine several of these sources to create comprehensive estimates of property-wise losses due to wildfires. Access to proprietary data held by insurance companies may require direct contact with those companies or partnerships between data providers and researchers.
 
 
-
+https://mediatum.ub.tum.de/doc/1452293/document.pdf
 
 
 
