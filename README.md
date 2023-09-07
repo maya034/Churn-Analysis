@@ -317,4 +317,57 @@ https://mediatum.ub.tum.de/doc/1452293/document.pdf
 
 
 
+
+
+
+
+
+
+
+------/-----
+document.pdf
+
+
+
+
+
+
+
+
+
+
+------/-----
+import pandas as pd
+
+# Sample DataFrame (replace this with your actual DataFrame)
+data = {
+    'Pool Area (Square Feet)': [1000, 1500, 800, 1200],
+    'Pool Enclosure Existence (Yes/No)': ['Yes', 'No', 'Yes', 'No'],
+    'Temporary Pool (Yes/No)': ['No', 'Yes', 'No', 'No'],
+    'Trampoline Existence (Yes/No)': ['No', 'Yes', 'No', 'Yes']
+}
+
+df = pd.DataFrame(data)
+
+# Define the updated weights for each feature
+weights = {
+    'Pool Area (Square Feet)': 0.2,
+    'Pool Enclosure Existence (Yes/No)': 0.3,
+    'Temporary Pool (Yes/No)': 0.1,
+    'Trampoline Existence (Yes/No)': 0.1
+}
+
+# Create the 'Pool' feature with updated weights
+df['Pool'] = (
+    df['Pool Area (Square Feet)'] * weights['Pool Area (Square Feet)'] +
+    (df['Pool Enclosure Existence (Yes/No)'] == 'Yes') * weights['Pool Enclosure Existence (Yes/No)'] +
+    (df['Temporary Pool (Yes/No)'] == 'Yes') * weights['Temporary Pool (Yes/No)'] +
+    (df['Trampoline Existence (Yes/No)'] == 'Yes') * weights['Trampoline Existence (Yes/No)']
+)
+
+# Display the updated DataFrame with the 'Pool' feature
+print(df)
+
+
+
     
