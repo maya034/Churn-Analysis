@@ -374,3 +374,23 @@ print(df)
     https://www.bigrentz.com/blog/building-construction-types
     https://www.procore.com/library/construction-project-types#2-commercial-projects
     https://www.strongholdengineering.com/the-5-types-of-building-construction-and-their-pros-and-cons/
+
+
+
+
+
+
+
+
+
+
+
+
+
+    [950,975]	0.959
+[975,1000]	0.959
+[1000,1025]	0.959
+[1025,1050]	0.959
+[1050,1075]	0.959
+[1075,1100]	0.959
+
