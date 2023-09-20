@@ -387,10 +387,42 @@ print(df)
 
 
 
-    [950,975]	0.959
-[975,1000]	0.959
-[1000,1025]	0.959
-[1025,1050]	0.959
-[1050,1075]	0.959
-[1075,1100]	0.959
+import pandas as pd
+import re
+
+# Load the main Excel file
+main_sheet = pd.read_excel('main_sheet.xlsx')
+
+# Load the bucket Excel file
+bucket_sheet = pd.read_excel('bucket_sheet.xlsx')
+
+# Function to extract lower and upper bounds from [x, y]
+def extract_bounds(bucket_str):
+    bounds = re.findall(r'\d+', bucket_str)
+    return int(bounds[0]), int(bounds[1])
+
+# Create a function to find the closest square footage bucket
+def find_closest_bucket(square_footage, bucket_sheet):
+    min_distance = float('inf')
+    closest_bucket = None
+
+    for index, row in bucket_sheet.iterrows():
+        bucket_start, bucket_end = extract_bounds(row['Bucket'])
+        bucket_midpoint = (bucket_start + bucket_end) / 2
+        distance = abs(square_footage - bucket_midpoint)
+        
+        if distance < min_distance:
+            min_distance = distance
+            closest_bucket = row['Bucket']
+    
+    return closest_bucket
+
+# Map the closest bucket to each square footage value
+main_sheet['Closest_Bucket'] = main_sheet['Square_Footage'].apply(lambda x: find_closest_bucket(x, bucket_sheet))
+
+# Merge with the bucket sheet to get factors
+main_sheet = main_sheet.merge(bucket_sheet, left_on='Closest_Bucket', right_on='Bucket', how='left')
+
+# Save the updated main sheet with factors
+main_sheet.to_excel('main_sheet_with_factors.xlsx', index=False)
 
