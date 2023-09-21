@@ -382,33 +382,23 @@ print(df)
 
 
 
-
 import pandas as pd
 
 # Sample DataFrame df3
-data = {'Roof_type_RF': ['Flat', 'Gabble', 'Hip', 'Mix'],
-        'Roof_Material_RF': ['Concrete', 'Metal', 'Shingle', 'Tile']}
+data = {'Story_Num_BU': ['1', '1+', '2', '3', '4']}
 df3 = pd.DataFrame(data)
 
-# Define the mapping for Roof_type_RF
-roof_type_mapping = {
-    'Flat': 0.850,
-    'Gabble': 1,
-    'Hip': 1,
-    'Mix': 1.050
-}
+# Define a function to map the values based on the condition
+def map_story_num(value):
+    if value == '1':
+        return 1
+    elif '+' in value:
+        return 0.954
+    else:
+        return 0.954 if int(value) > 1 else None
 
-# Define the mapping for Roof_Material_RF
-roof_material_mapping = {
-    'Concrete': 0.972,
-    'Metal': 1.225,
-    'Shingle': 1,
-    'Tile': 1
-}
-
-# Replace the values in the DataFrame
-df3['Roof_type_RF'] = df3['Roof_type_RF'].replace(roof_type_mapping)
-df3['Roof_Material_RF'] = df3['Roof_Material_RF'].replace(roof_material_mapping)
+# Apply the mapping function to the Story_Num_BU column
+df3['Story_Num_BU'] = df3['Story_Num_BU'].apply(map_story_num)
 
 # Display the updated DataFrame
 print(df3)
