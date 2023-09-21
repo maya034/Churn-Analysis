@@ -403,3 +403,98 @@ df3['Story_Num_BU'] = df3['Story_Num_BU'].apply(map_story_num)
 # Display the updated DataFrame
 print(df3)
 
+
+
+++++++++++++
+
+=====================================
+
+
+# Function to extract lower and upper bounds from [x, y]
+def extract_bounds(bucket_str): 
+    bounds = re.findall(r'\d+', bucket_str) 
+    return int(bounds[0]), int(bounds[1])
+
+# Create a function to find the closest square footage bucket
+def find_closest_bucket1(DIS_Firestation_BU, df4): 
+    min_distance = float('inf') 
+    closest_bucket1 = None
+
+    for index, row in df4.iterrows():
+        bucket_start, bucket_end = extract_bounds(row['DIS_Firestation_BU'])
+        bucket_midpoint = (bucket_start + bucket_end) / 2
+        distance = abs(DIS_Firestation_BU - bucket_midpoint)
+
+        if distance < min_distance:
+            min_distance = distance
+            Closest_Bucket1 = row['DIS_Firestation_BU']
+
+    return Closest_Bucket1
+# #Map the closest bucket to each square footage value
+df3['Closest_Bucket1'] = df3['DIS_Firestation_BU'].apply(lambda x: find_closest_bucket1(x, df4))
+
+# 3Merge with the bucket sheet to get factors
+df3 = df3.merge(df4, left_on='Closest_Bucket1', right_on='DIS_Firestation_BU', how='left')
+
+# #Save the updated main sheet with factors
+df3.to_excel('d5.xlsx', index=False)
+
+# Replace the values in the DataFrame
+df3['Roof_type_RF'] = df3['Roof_type_RF'].replace(roof_type_mapping)
+df3['Roof_Material_RF'] = df3['Roof_Material_RF'].replace(roof_material_mapping)
+
+# Display the updated DataFrame
+print(df3)
+
+
+
+
+
+
+---------------------------------------------------------------------------
+UnboundLocalError                         Traceback (most recent call last)
+~\AppData\Local\Temp\1\ipykernel_22452\1888853339.py in <module>
+     20     return Closest_Bucket1
+     21 # #Map the closest bucket to each square footage value
+---> 22 df3['Closest_Bucket1'] = df3['DIS_Firestation_BU'].apply(lambda x: find_closest_bucket1(x, df4))
+     23 
+     24 # 3Merge with the bucket sheet to get factors
+
+~\Anaconda3\lib\site-packages\pandas\core\series.py in apply(self, func, convert_dtype, args, **kwargs)
+   4431         dtype: float64
+   4432         """
+-> 4433         return SeriesApply(self, func, convert_dtype, args, kwargs).apply()
+   4434 
+   4435     def _reduce(
+
+~\Anaconda3\lib\site-packages\pandas\core\apply.py in apply(self)
+   1086             return self.apply_str()
+   1087 
+-> 1088         return self.apply_standard()
+   1089 
+   1090     def agg(self):
+
+~\Anaconda3\lib\site-packages\pandas\core\apply.py in apply_standard(self)
+   1141                 # List[Union[Callable[..., Any], str]]]]]"; expected
+   1142                 # "Callable[[Any], Any]"
+-> 1143                 mapped = lib.map_infer(
+   1144                     values,
+   1145                     f,  # type: ignore[arg-type]
+
+~\Anaconda3\lib\site-packages\pandas\_libs\lib.pyx in pandas._libs.lib.map_infer()
+
+~\AppData\Local\Temp\1\ipykernel_22452\1888853339.py in <lambda>(x)
+     20     return Closest_Bucket1
+     21 # #Map the closest bucket to each square footage value
+---> 22 df3['Closest_Bucket1'] = df3['DIS_Firestation_BU'].apply(lambda x: find_closest_bucket1(x, df4))
+     23 
+     24 # 3Merge with the bucket sheet to get factors
+
+~\AppData\Local\Temp\1\ipykernel_22452\1888853339.py in find_closest_bucket1(DIS_Firestation_BU, df4)
+     18             Closest_Bucket1 = row['DIS_Firestation_BU']
+     19 
+---> 20     return Closest_Bucket1
+     21 # #Map the closest bucket to each square footage value
+     22 df3['Closest_Bucket1'] = df3['DIS_Firestation_BU'].apply(lambda x: find_closest_bucket1(x, df4))
+
+UnboundLocalError: local variable 'Closest_Bucket1' referenced before assignment
