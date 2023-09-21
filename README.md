@@ -383,46 +383,33 @@ print(df)
 
 
 
-
-
-
-
 import pandas as pd
-import re
 
-# Load the main Excel file
-main_sheet = pd.read_excel('main_sheet.xlsx')
+# Sample DataFrame df3
+data = {'Roof_type_RF': ['Flat', 'Gabble', 'Hip', 'Mix'],
+        'Roof_Material_RF': ['Concrete', 'Metal', 'Shingle', 'Tile']}
+df3 = pd.DataFrame(data)
 
-# Load the bucket Excel file
-bucket_sheet = pd.read_excel('bucket_sheet.xlsx')
+# Define the mapping for Roof_type_RF
+roof_type_mapping = {
+    'Flat': 0.850,
+    'Gabble': 1,
+    'Hip': 1,
+    'Mix': 1.050
+}
 
-# Function to extract lower and upper bounds from [x, y]
-def extract_bounds(bucket_str):
-    bounds = re.findall(r'\d+', bucket_str)
-    return int(bounds[0]), int(bounds[1])
+# Define the mapping for Roof_Material_RF
+roof_material_mapping = {
+    'Concrete': 0.972,
+    'Metal': 1.225,
+    'Shingle': 1,
+    'Tile': 1
+}
 
-# Create a function to find the closest square footage bucket
-def find_closest_bucket(square_footage, bucket_sheet):
-    min_distance = float('inf')
-    closest_bucket = None
+# Replace the values in the DataFrame
+df3['Roof_type_RF'] = df3['Roof_type_RF'].replace(roof_type_mapping)
+df3['Roof_Material_RF'] = df3['Roof_Material_RF'].replace(roof_material_mapping)
 
-    for index, row in bucket_sheet.iterrows():
-        bucket_start, bucket_end = extract_bounds(row['Bucket'])
-        bucket_midpoint = (bucket_start + bucket_end) / 2
-        distance = abs(square_footage - bucket_midpoint)
-        
-        if distance < min_distance:
-            min_distance = distance
-            closest_bucket = row['Bucket']
-    
-    return closest_bucket
-
-# Map the closest bucket to each square footage value
-main_sheet['Closest_Bucket'] = main_sheet['Square_Footage'].apply(lambda x: find_closest_bucket(x, bucket_sheet))
-
-# Merge with the bucket sheet to get factors
-main_sheet = main_sheet.merge(bucket_sheet, left_on='Closest_Bucket', right_on='Bucket', how='left')
-
-# Save the updated main sheet with factors
-main_sheet.to_excel('main_sheet_with_factors.xlsx', index=False)
+# Display the updated DataFrame
+print(df3)
 
