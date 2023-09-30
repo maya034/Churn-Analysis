@@ -498,3 +498,48 @@ UnboundLocalError                         Traceback (most recent call last)
      22 df3['Closest_Bucket1'] = df3['DIS_Firestation_BU'].apply(lambda x: find_closest_bucket1(x, df4))
 
 UnboundLocalError: local variable 'Closest_Bucket1' referenced before assignment
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import pandas as pd
+
+# Sample DataFrame df3
+data3 = {'DIS_Firestation_BU': [25, 75, 125, 200]}
+df3 = pd.DataFrame(data3)
+
+# Sample DataFrame df4 (your bucket sheet)
+data4 = {'DIS_Firestation_BU': ['[0,50]', '[50,100]', '[100,150]', '[150,200]'],
+         'Factor': [0.959, 0.76, 0.788, 0.879]}
+df4 = pd.DataFrame(data4)
+
+# Define a function to map 'DIS_Firestation_BU' to factors
+def map_firestation_factor(DIS_Firestation_BU, df4):
+    for index, row in df4.iterrows():
+        bounds = row['DIS_Firestation_BU'].strip('[]').split(',')
+        bucket_start, bucket_end = int(bounds[0]), int(bounds[1])
+        if bucket_start <= DIS_Firestation_BU <= bucket_end:
+            return row['Factor']
+    return None  # Return None if no matching bucket is found
+
+# Map 'DIS_Firestation_BU' to factors and add a new column 'Factor' to df3
+df3['Factor'] = df3['DIS_Firestation_BU'].apply(lambda x: map_firestation_factor(x, df4))
+
+# Display the updated DataFrame
+print(df3)
+
+
+
+
