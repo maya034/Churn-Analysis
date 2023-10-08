@@ -543,3 +543,33 @@ print(df3)
 
 
 
+
+
+
+
+import pandas as pd
+
+# Sample property data with square footage
+data = {'Square_Footage': [1500, 2500, 3000, 4500, 6000, 7000, 9000]}
+df = pd.DataFrame(data)
+
+# Define custom risk buckets as percentiles
+risk_buckets = {
+    '30%': (0, 2000),
+    '60%': (2001, 4000),
+    '80%': (4001, 6000),
+    '100%': (6001, float('inf'))
+}
+
+# Define a function to assign risk buckets based on square footage
+def define_risk_bucket(sqft):
+    for risk, (min_sqft, max_sqft) in risk_buckets.items():
+        if min_sqft <= sqft <= max_sqft:
+            return risk
+
+# Apply the risk bucketing function to each property
+df['Risk_Bucket'] = df['Square_Footage'].apply(define_risk_bucket)
+
+# Print the resulting dataframe
+print(df)
+
