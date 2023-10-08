@@ -542,34 +542,30 @@ print(df3)
 
 
 
-
-
-
-
-
 import pandas as pd
 
-# Sample property data with square footage
-data = {'Square_Footage': [1500, 2500, 3000, 4500, 6000, 7000, 9000]}
+# Sample data with Roof_Type_RF category
+data = {'Roof_Type_RF': ['Flat', 'Gable', 'Hip', 'Mix', 'Flat', 'Gable', 'Mix']}
 df = pd.DataFrame(data)
 
-# Define custom risk buckets as percentiles
+# Define custom risk buckets and their corresponding percentages
 risk_buckets = {
-    '30%': (0, 2000),
-    '60%': (2001, 4000),
-    '80%': (4001, 6000),
-    '100%': (6001, float('inf'))
+    'Low Risk': ['Flat', 'Hip'],
+    'Medium Risk': ['Gable'],
+    'High Risk': ['Mix']
 }
 
-# Define a function to assign risk buckets based on square footage
-def define_risk_bucket(sqft):
-    for risk, (min_sqft, max_sqft) in risk_buckets.items():
-        if min_sqft <= sqft <= max_sqft:
+# Define a function to assign risk buckets based on Roof_Type_RF category
+def define_risk_bucket(rooftype):
+    for risk, roof_types in risk_buckets.items():
+        if rooftype in roof_types:
             return risk
 
 # Apply the risk bucketing function to each property
-df['Risk_Bucket'] = df['Square_Footage'].apply(define_risk_bucket)
+df['Risk_Bucket'] = df['Roof_Type_RF'].apply(define_risk_bucket)
 
 # Print the resulting dataframe
 print(df)
+
+
 
