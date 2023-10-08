@@ -569,3 +569,31 @@ print(df)
 
 
 
+
+
+
+import pandas as pd
+
+# Sample data with the number of floors
+data = {'Num_Floors': [1, 2, 4, 6, 10, 15]}
+df = pd.DataFrame(data)
+
+# Define a function to bucket the number of floors
+def categorize_floors(num_floors):
+    if num_floors <= 2:
+        return 'Low Rise'
+    elif 3 <= num_floors <= 6:
+        return 'Mid Rise'
+    elif num_floors >= 7:
+        return 'High Rise'
+
+# Create a new feature 'Story_Num_BU' based on the number of floors
+df['Story_Num_BU'] = df['Num_Floors'].apply(categorize_floors)
+
+# Print the resulting dataframe
+print(df)
+
+
+
+
+
