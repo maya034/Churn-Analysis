@@ -594,6 +594,29 @@ df['Story_Num_BU'] = df['Num_Floors'].apply(categorize_floors)
 print(df)
 
 
+import pandas as pd
+
+# Sample data with distances to the nearest fire station (in feet)
+data = {'Distance_to_Fire_Station_Feet': [1320, 2640, 5280, 10560, 18480, 31680]}
+df = pd.DataFrame(data)
+
+# Convert distances from feet to miles (assuming 1 mile = 5280 feet)
+df['Distance_to_Fire_Station_Miles'] = df['Distance_to_Fire_Station_Feet'] / 5280.0
+
+# Define a function to bucket the distances to fire stations
+def categorize_fire_station(distance):
+    if distance <= 0.2:  # Assuming 0.2 miles as "Very Close" (approximately 1056 feet)
+        return 'Very Close'
+    elif 0.2 < distance <= 0.5:  # Assuming 0.5 miles as "Moderate Distance" (approximately 2640 feet)
+        return 'Moderate Distance'
+    elif distance > 0.5:
+        return 'Far from Fire Station'
+
+# Create a new feature 'Fire_Station_Category' based on distance
+df['Fire_Station_Category'] = df['Distance_to_Fire_Station_Miles'].apply(categorize_fire_station)
+
+# Print the resulting dataframe
+print(df)
 
 
 
