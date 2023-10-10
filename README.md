@@ -593,30 +593,29 @@ df['Story_Num_BU'] = df['Num_Floors'].apply(categorize_floors)
 # Print the resulting dataframe
 print(df)
 
-
 import pandas as pd
 
-# Sample data with distances to the nearest fire station (in feet)
-data = {'Distance_to_Fire_Station_Feet': [1320, 2640, 5280, 10560, 18480, 31680]}
+# Sample data with the number of ACs
+data = {'Num_AC_Units': [0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 12]}
 df = pd.DataFrame(data)
 
-# Convert distances from feet to miles (assuming 1 mile = 5280 feet)
-df['Distance_to_Fire_Station_Miles'] = df['Distance_to_Fire_Station_Feet'] / 5280.0
+# Define custom risk buckets and their corresponding risk scores
+risk_buckets = {
+    'Low Risk': (0, 2),
+    'Moderate Risk': (3, 5),
+    'High Risk': (6, 8),
+    'Very High Risk': (9, float('inf'))
+}
 
-# Define a function to bucket the distances to fire stations
-def categorize_fire_station(distance):
-    if distance <= 0.2:  # Assuming 0.2 miles as "Very Close" (approximately 1056 feet)
-        return 'Very Close'
-    elif 0.2 < distance <= 0.5:  # Assuming 0.5 miles as "Moderate Distance" (approximately 2640 feet)
-        return 'Moderate Distance'
-    elif distance > 0.5:
-        return 'Far from Fire Station'
+# Define a function to calculate risk based on the number of AC units
+def calculate_ac_risk(count):
+    for risk, (min_count, max_count) in risk_buckets.items():
+        if min_count <= count <= max_count:
+            return risk
 
-# Create a new feature 'Fire_Station_Category' based on distance
-df['Fire_Station_Category'] = df['Distance_to_Fire_Station_Miles'].apply(categorize_fire_station)
+# Create a new feature 'AC_Risk' based on the number of AC units
+df['AC_Risk'] = df['Num_AC_Units'].apply(calculate_ac_risk)
 
 # Print the resulting dataframe
 print(df)
-
-
 
