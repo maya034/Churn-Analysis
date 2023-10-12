@@ -14,30 +14,20 @@ https://openacttexts.github.io/LDACourse1/index.html#why-loss-data-analytics
 
 
 
-import pandas as pd
 
-# Sample data with distances to the closest building (in feet)
-data = {'DIS_ClosestBuilding_BU': [1.0, 2.5, 4.0, 7.0, 10.0, 15.0, 0.5, 3.0, 5.0, 8.0, 12.0]}
+  import pandas as pd
+
+# Sample data with Roof_Material_RF and Roof_Condition_RF values (in percentages)
+data = {'Roof_Material_RF': [80, 60, 100, 20],
+        'Roof_Condition_RF': [90, 60, 40, 20]}
 df = pd.DataFrame(data)
 
-# Define risk categories based on percentiles
-low_risk_max = df['DIS_ClosestBuilding_BU'].quantile(0.25)
-moderate_risk_max = df['DIS_ClosestBuilding_BU'].quantile(0.75)
-high_risk_max = df['DIS_ClosestBuilding_BU'].quantile(0.75)
+# Assign weights to each feature
+weight_material = 0.7  # 70% weight for Roof_Material_RF
+weight_condition = 0.3  # 30% weight for Roof_Condition_RF
 
-# Define a function to categorize distances into risk levels (closer is riskier)
-def categorize_wildfire_risk(distance):
-    if distance <= low_risk_max:
-        return 'Very High Risk'
-    elif low_risk_max < distance <= moderate_risk_max:
-        return 'High Risk'
-    elif moderate_risk_max < distance <= high_risk_max:
-        return 'Moderate Risk'
-    else:
-        return 'Low Risk'
-
-# Create a new feature 'Wildfire_Risk' based on distances
-df['Wildfire_Risk'] = df['DIS_ClosestBuilding_BU'].apply(categorize_wildfire_risk)
+# Calculate the combined risk as a weighted average of the percentages
+df['Combined_Risk'] = (df['Roof_Material_RF'] * weight_material) + (df['Roof_Condition_RF'] * weight_condition)
 
 # Print the resulting dataframe
 print(df)
