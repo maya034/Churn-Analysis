@@ -54,3 +54,55 @@ df['Risk_Score'] = df.apply(calculate_primary_risk_score, axis=1)
 
 # Print the DataFrame with the calculated risk scores
 print(df)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+primary		100	convert it to 75												
+occupany		15	residential-30%			secondary(25%)	100				DIS_Vegetation_BU	risk			
+construction		45				Roof_Type_RF/geometry	5				10km	very high	100		
+yearbuilt		10				Roof_Condition_RF					10-50km	high	80		
+no of building	ex dlf	5				Roof_Material_RF	10				50-200km	risky	60		
+floor area/square foot area		15				Pool_Enclosure_PA	5				200-500	less risky	20		
+stories		10				DIS_Firestation_BU	10				>500	no risk	0		
+						Chimneys_RF	5				wind direction 	?			
+primary	secondary					Roof_Evidence_RF					wind storm part				
+75	25				exclude	Solar_Panels_RF	5								
+6 fields						Air_Conditioner_RF	5								
+						Skylights_RF	5								
+															
+						Tree_Overhang_RF	10								
+						DIS_ClosestBuilding_BU	10								
+						DIS_Trees_BU	10								
+															
+						Pool_AR_PA									
+						Temporary_pool_PA									
+						Trampoline_PA									
+						Yard_Debris_PA	10								
+						DIS_WaterBody_BU	10								
+															
+						BUILDING WALL TYPE	NOT THR	10 IMP OVERHANG CLOSEST BUILD 5-5							
+															
+				risk score 											
+	x	y	x+y=100	(x+y)*disbu											
+															
+![image](https://github.com/maya034/Churn-Analysis/assets/61015843/7fe6942d-3ee9-4fce-9117-a0b674c57f36)
