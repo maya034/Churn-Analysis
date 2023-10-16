@@ -15,19 +15,42 @@ https://openacttexts.github.io/LDACourse1/index.html#why-loss-data-analytics
 
 
 
-  import pandas as pd
+import pandas as pd
 
-# Sample data with Roof_Material_RF and Roof_Condition_RF values (in percentages)
-data = {'Roof_Material_RF': [80, 60, 100, 20],
-        'Roof_Condition_RF': [90, 60, 40, 20]}
+# Sample DataFrame (replace this with your actual DataFrame)
+data = {
+    'Construction': [4, 3, 2, 5],
+    'Occupancy': [1, 2, 3, 1],
+    'Year_built': [1990, 1980, 2000, 1975],
+    'No of Building': [1, 2, 1, 1],
+    'Square_Footage': [3000, 2500, 2000, 3500],
+    'Story_Num_BU': [2, 1, 2, 3]
+}
 df = pd.DataFrame(data)
 
-# Assign weights to each feature
-weight_material = 0.7  # 70% weight for Roof_Material_RF
-weight_condition = 0.3  # 30% weight for Roof_Condition_RF
+def calculate_primary_risk_score(row):
+    # Define the percentages for each primary feature
+    construction_percentage = 45
+    occupancy_percentage = 15
+    year_built_percentage = 10
+    num_buildings_percentage = 5
+    square_footage_percentage = 15
+    story_num_percentage = 10
 
-# Calculate the combined risk as a weighted average of the percentages
-df['Combined_Risk'] = (df['Roof_Material_RF'] * weight_material) + (df['Roof_Condition_RF'] * weight_condition)
+    # Calculate the risk score for the row
+    risk_score = (
+        (row['Construction'] * construction_percentage / 100) +
+        (row['Occupancy'] * occupancy_percentage / 100) +
+        (row['Year_built'] * year_built_percentage / 100) +
+        (row['No of Building'] * num_buildings_percentage / 100) +
+        (row['Square_Footage'] * square_footage_percentage / 100) +
+        (row['Story_Num_BU'] * story_num_percentage / 100)
+    )
 
-# Print the resulting dataframe
+    return risk_score
+
+# Calculate the risk score for each row in the DataFrame
+df['Risk_Score'] = df.apply(calculate_primary_risk_score, axis=1)
+
+# Print the DataFrame with the calculated risk scores
 print(df)
