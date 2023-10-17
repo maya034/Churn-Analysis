@@ -16,20 +16,27 @@ import pandas as pd
 data = {
     'Primary_Risk': [75, 80, 70, 85],
     'Secondary_Risk': [60, 55, 65, 50],
-    'DIS_Vegetation_BU': [3, 10, 100, 300]
+    'DIS_Vegetation_BU': [300, 1000, 10000, 30000]  # Distance in feet
 }
 
 df = pd.DataFrame(data)
 
+def feet_to_km(feet):
+    # Convert feet to kilometers (1 foot = 0.0003048 kilometers)
+    return feet * 0.0003048
+
 def calculate_final_score(row):
-    # Define the weights for DIS_Vegetation_BU distance ranges
-    if row['DIS_Vegetation_BU'] <= 5:
+    # Convert the distance in feet to kilometers
+    distance_km = feet_to_km(row['DIS_Vegetation_BU'])
+    
+    # Define the weights for distance ranges in kilometers
+    if distance_km <= 5:
         weight_vegetation = 1.0  # 100% Total_Score
-    elif 5 < row['DIS_Vegetation_BU'] <= 50:
+    elif 5 < distance_km <= 50:
         weight_vegetation = 0.85  # 85% Total_Score
-    elif 50 < row['DIS_Vegetation_BU'] <= 200:
+    elif 50 < distance_km <= 200:
         weight_vegetation = 0.6  # 60% Total_Score
-    elif 200 < row['DIS_Vegetation_BU'] <= 500:
+    elif 200 < distance_km <= 500:
         weight_vegetation = 0.2  # 20% Total_Score
     else:
         weight_vegetation = 0.0  # 0% Total_Score
@@ -44,4 +51,3 @@ df['Final_Score'] = df.apply(calculate_final_score, axis=1)
 
 # Print the DataFrame with the calculated final scores
 print(df)
-
