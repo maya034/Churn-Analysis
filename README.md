@@ -10,25 +10,30 @@ https://openacttexts.github.io/LDACourse1/index.html#why-loss-data-analytics
 
 
 
+import pandas as pd
 
+# Sample DataFrame (replace this with your actual DataFrame)
+data = {
+    'Primary_risk': [75, 80, 70, 85],
+    'Secondary_Risk': [60, 55, 65, 50]
+}
 
-def calculate_total_score(primary_score, secondary_score):
+df = pd.DataFrame(data)
+
+def calculate_total_score(row):
     # Define the weights for primary and secondary scores
     weight_primary = 0.75
     weight_secondary = 0.25
 
-    # Calculate the total score as a weighted combination
-    total_score = (weight_primary * primary_score) + (weight_secondary * secondary_score)
+    # Calculate the total score for the row based on the specified weights
+    total_score = (weight_primary * row['Primary_risk']) + (weight_secondary * row['Secondary_Risk'])
 
     return total_score
 
-# Example usage:
-primary_score_value = 75  # Replace with the actual primary score
-secondary_score_value = 60  # Replace with the actual secondary score
+# Calculate the total score for each row in the DataFrame
+df['Total_Score'] = df.apply(calculate_total_score, axis=1)
 
-total_score = calculate_total_score(primary_score_value, secondary_score_value)
-
-print("Total Score:", total_score)
-
+# Print the DataFrame with the calculated total scores
+print(df)
 
 
