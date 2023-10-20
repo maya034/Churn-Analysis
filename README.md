@@ -90,23 +90,37 @@ DIS_WaterBody_BU
 
 
 
+from uszipcode import SearchEngine
+import pandas as pd
 
+# Sample DataFrame 'df' with 'state_name' and 'city_name' columns
+data = {'state_name': ['California', 'New York', 'Texas'],
+        'city_name': ['Los Angeles', 'New York City', 'Houston']}
+df = pd.DataFrame(data)
 
+# Create a search engine instance
+search = SearchEngine(simple_zipcode=True)
 
+def get_county(row):
+    state = row['state_name']
+    city = row['city_name']
+    
+    # Use the search engine to find the county based on state and city
+    result = search.by_city_and_state(city, state)
+    
+    # Extract the county information
+    if result:
+        county = result[0].county
+    else:
+        county = 'Unknown'
+    
+    return county
 
+# Apply the function to add a 'county' column to the DataFrame
+df['county'] = df.apply(get_county, axis=1)
 
-
-
-
-
-
-
-
-
-
-
-
-
+# Print the updated DataFrame
+print(df)
 Attribute
 Assumption
 Occupancy
