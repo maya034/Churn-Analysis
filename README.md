@@ -223,7 +223,21 @@ Distance <= 500 ft : 80%
 
 Here risk bucket for pool area and temporary pool area has been calculated and then combined together to calculate the combined risk as a weighted average of the percentage as-
 weight pool: 0.8 i.e. 80% weight for pool area
-weight temporary pool area: 0.2 i.e. 20% weight for temporary pool area.
+weight temporary pool area: 0.2 i.e. 20% weight for temporary pool def get_county(state_name, city_name):
+    location = geolocator.geocode(f"{city_name}, {state_name}", exactly_one=True)
+    
+    if location:
+        address = location.raw
+        county = address.get("address", {}).get("county", "Unknown")
+    else:
+        county = "Unknown"
+    
+    return county
+
+
+
+
+
 
 
 
