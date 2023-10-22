@@ -237,6 +237,10 @@ weight temporary pool area: 0.2 i.e. 20% weight for temporary pool def get_count
 
 
 
+GeocoderUnavailable: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=PEARL+RIVER%2C+Louisiana&format=json&limit=1 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self signed certificate in certificate chain (_ssl.c:1129)')))
+
+
+
 
 
 
