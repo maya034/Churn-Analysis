@@ -241,7 +241,36 @@ GeocoderUnavailable: HTTPSConnectionPool(host='nominatim.openstreetmap.org', por
 
 
 
+from geopy.geocoders import Nominatim
+import requests
 
+# Create a geocoder instance using Nominatim
+geolocator = Nominatim(user_agent="myGeocoder")
+
+# Define a function to get the county information based on state and city
+def get_county(state_name, city_name):
+    url = f"https://nominatim.openstreetmap.org/search?q={city_name}, {state_name}&format=json&limit=1"
+    
+    try:
+        response = requests.get(url, verify=False)  # Disable SSL certificate verification
+        data = response.json()
+        
+        if data:
+            county = data[0].get("address", {}).get("county", "Unknown")
+        else:
+            county = "Unknown"
+    
+    except Exception as e:
+        print(f"Error: {e}")
+        county = "Unknown"
+    
+    return county
+
+# Use the function to find the county for a specific state and city
+state = "Louisiana"
+city = "Pearl River"
+county = get_county(state, city)
+print(f"The county for {city}, {state} is {county}")
 
 
 
