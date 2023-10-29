@@ -7,37 +7,68 @@ Predict behavior to retain customers. You can analyze all relevant customer data
 
 
 
-import requests 
-from bs4 import BeautifulSoup
-# Define the URL of the page you want to scrape 
-url = 'https://www.realtor.com/' 
-# Send an HTTP request to the website 
-response = requests.get(url)
-# Check if the request was successful 
-if response.status_code == 200: 
-# Parse the HTML content of the page
-  soup = BeautifulSoup(response.text, 'html.parser') 
-# Find the elements that contain the data you want 
-  property_listings = soup.find_all('div', class_='property-listing') 
-  for listing in property_listings:
-# Extract full address 
-    address = listing.find('span', class_='address').text 
-# Extract zip code 
-    zip_code = listing.find('span', class_='zip-code').text 
-# Extract county 
-    county = listing.find('span', class_='county').text
-# Extract date 
-    date = listing.find('span', class_='date').text 
-# Extract building value 
-    building_value = listing.find('span', class_='building-value').text 
-# Print or save the extracted data as needed 
-    print(f"Address: {address}") 
-    print(f"Zip Code: {zip_code}") 
-    print(f"County: {county}") 
-    print(f"Date: {date}") 
-    print(f"Building Value: {building_value}") 
-else: 
-  print("Failed to retrieve the page. Status code:", response.status_code)
+import pandas as pd
 
+# Sample DataFrame
+data = {'ST_ABBR_CD': ['CA', 'NY', 'TX', 'FL', 'WA']}
+df = pd.DataFrame(data)
 
-https://checkmyhomevalue.typeform.com/denver?gclid=CjwKCAjwnOipBhBQEiwACyGLuitaoz-8fUHTwTNfH2j6gLBxcJSTUY6y7ijhNzU19hT1MSzhqOO_zhoCtUAQAvD_BwE&typeform-source=www.google.com
+# Define a dictionary to map state abbreviations to full names
+state_mapping = {
+    'AL': 'Alabama',
+    'AK': 'Alaska',
+    'AZ': 'Arizona',
+    'AR': 'Arkansas',
+    'CA': 'California',
+    'CO': 'Colorado',
+    'CT': 'Connecticut',
+    'DE': 'Delaware',
+    'FL': 'Florida',
+    'GA': 'Georgia',
+    'HI': 'Hawaii',
+    'ID': 'Idaho',
+    'IL': 'Illinois',
+    'IN': 'Indiana',
+    'IA': 'Iowa',
+    'KS': 'Kansas',
+    'KY': 'Kentucky',
+    'LA': 'Louisiana',
+    'ME': 'Maine',
+    'MD': 'Maryland',
+    'MA': 'Massachusetts',
+    'MI': 'Michigan',
+    'MN': 'Minnesota',
+    'MS': 'Mississippi',
+    'MO': 'Missouri',
+    'MT': 'Montana',
+    'NE': 'Nebraska',
+    'NV': 'Nevada',
+    'NH': 'New Hampshire',
+    'NJ': 'New Jersey',
+    'NM': 'New Mexico',
+    'NY': 'New York',
+    'NC': 'North Carolina',
+    'ND': 'North Dakota',
+    'OH': 'Ohio',
+    'OK': 'Oklahoma',
+    'OR': 'Oregon',
+    'PA': 'Pennsylvania',
+    'RI': 'Rhode Island',
+    'SC': 'South Carolina',
+    'SD': 'South Dakota',
+    'TN': 'Tennessee',
+    'TX': 'Texas',
+    'UT': 'Utah',
+    'VT': 'Vermont',
+    'VA': 'Virginia',
+    'WA': 'Washington',
+    'WV': 'West Virginia',
+    'WI': 'Wisconsin',
+    'WY': 'Wyoming'
+}
+
+# Map state abbreviations to full names
+df['ST_FULL_NAME'] = df['ST_ABBR_CD'].replace(state_mapping)
+
+# Print the DataFrame with the new column
+print(df)
