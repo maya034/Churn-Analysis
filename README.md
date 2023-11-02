@@ -56,3 +56,93 @@ uvicorn your_file_name:app --host 0.0.0.0 --port 8000
 Now, you have a FastAPI application running with an endpoint at http://localhost:8000/get_risk_score. You can send a POST request with an address as input, and it will search the MongoDB collection for the corresponding risk score and return it.
 
 Remember to customize the code further as needed for your specific use case, including handling error cases and adding security features if required.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import pandas as pd
+import json
+
+class Wildfire:
+    def __init__(self, property_file_path, hazard_file_path):
+        # Read the property and hazard Excel files into dataframes
+        self.property_data = pd.read_excel(property_file_path)
+        self.hazard_data = pd.read_excel(hazard_file_path)
+        
+        # Concatenate County and State columns to create a common key
+        self.property_data['County_State'] = self.property_data['County'] + '_' + self.property_data['State']
+        self.hazard_data['County_State'] = self.hazard_data['County'] + '_' + self.hazard_data['State']
+
+        # Merge property and hazard data on the 'County_State' column
+        self.merged_data = pd.merge(self.property_data, self.hazard_data, on='County_State', how='inner')
+
+    def predict_risk_score(self, address_json):
+        # Parse the JSON input
+        address_data = json.loads(address_json)
+        
+        # Extract County and State from the JSON
+        county = address_data.get('County')
+        state = address_data.get('State')
+        
+        # Create a key for matching with the merged data
+        county_state_key = county + '_' + state
+        
+        # Filter the merged data for the given County_State
+        filtered_data = self.merged_data[self.merged_data['County_State'] == county_state_key]
+        
+        if len(filtered_data) == 0:
+            return "Address not found in the dataset"
+        
+        # Calculate the final risk score by multiplying Property Score and Exposure Score
+        final_score = filtered_data['Property_Score'] * filtered_data['Exposure_Score']
+        
+        return final_score.iloc[0]  # Return the final risk score for the given address
+
+# Example usage:
+property_file_path = 'property_data.xlsx'
+hazard_file_path = 'hazard_data.xlsx'
+wildfire = Wildfire(property_file_path, hazard_file_path)
+
+address_json = '{"County": "YourCounty", "State": "YourState"}'
+risk_score = wildfire.predict_risk_score(address_json)
+print("Final Risk Score:", risk_score)
+
+
+
