@@ -7,7 +7,10 @@ Predict behavior to retain customers. You can analyze all relevant customer data
 
 
 
-STRT_LINE_1_DESC	CITY_NME	ST_ABBR_CD	ZIP_CD	Footprint_Area	Story_Num_BU	Square_Footage	Roof_Type_RF	Roof_Material_RF	Roof_Condition_RF	Roof_Evidence_RF	Solar_Panels_RF	Air_Conditioner_RF	Skylights_RF	Chimneys_RF	Tree_Overhang_RF	Gable_Wall_DI_RF	Building_Height_BU	Ground_Height_BU	DIS_ClosestBuilding_BU	DIS_Vegetation_BU	Tree_height_BU	DIS_Trees_BU	Pool_AR_PA	Pool_Enclosure_PA	Temporary_pool_PA	Trampoline_PA	Yard_Debris_PA	DIS_WaterBody_BU	DIS_Firestation_BU	DIS_Coast_BU	Construction	Occupancy	Year_built	No of Building																																																																																																																																																																																																																																																															from pymongo import MongoClient
+STRT_LINE_1_DESC	CITY_NME	ST_ABBR_CD	ZIP_CD	Footprint_Area	Story_Num_BU	Square_Footage	Roof_Type_RF	Roof_Material_RF	Roof_Condition_RF	Roof_Evidence_RF	Solar_Panels_RF	Air_Conditioner_RF	Skylights_RF	Chimneys_RF	Tree_Overhang_RF	Gable_Wall_DI_RF	Building_Height_BU	Ground_Height_BU	DIS_ClosestBuilding_BU	DIS_Vegetation_BU	Tree_height_BU	DIS_Trees_BU	Pool_AR_PA	Pool_Enclosure_PA	Temporary_pool_PA	Trampoline_PA	Yard_Debris_PA	DIS_WaterBody_BU	DIS_Firestation_BU	DIS_Coast_BU	Construction	Occupancy	Year_built	No of Building																																																									
+
+
+from pymongo import MongoClient
 
 # Connect to MongoDB
 client = MongoClient('mongodb://localhost:27017')  # Adjust the connection URL as needed
@@ -60,3 +63,23 @@ for index, row in merge_data_score.iterrows():
 
 # Close the MongoDB connection
 client.close()
+
+
+
+
+
+
+
+'county', 'exposure_score', 'county_extracted', 'STRT_LINE_1_DESC',
+       'CITY_NME', 'ST_ABBR_CD', 'ZIP_CD', 'Footprint_Area', 'Story_Num_BU',
+       'Square_Footage', 'Roof_Type_RF', 'Roof_Material_RF',
+       'Roof_Condition_RF', 'Roof_Evidence_RF', 'Solar_Panels_RF',
+       'Air_Conditioner_RF', 'Skylights_RF', 'Chimneys_RF', 'Tree_Overhang_RF',
+       'Gable_Wall_DI_RF', 'Building_Height_BU', 'Ground_Height_BU',
+       'DIS_ClosestBuilding_BU', 'DIS_Vegetation_BU', 'Tree_height_BU',
+       'DIS_Trees_BU', 'Pool_AR_PA', 'Pool_Enclosure_PA', 'Temporary_pool_PA',
+       'Trampoline_PA', 'Yard_Debris_PA', 'DIS_WaterBody_BU',
+       'DIS_Firestation_BU', 'DIS_Coast_BU', 'Construction', 'Occupancy',
+       'Year_built', 'No of Building', 'Roof_Material_Condition', 'Pools',
+       'Primary_risk', 'Secondary_Risk', 'Total_Score', 'Final_Score',
+       'city_state', 'county_name', 'overall_scoring'
