@@ -163,4 +163,56 @@ TypeError                                 Traceback (most recent call last)
 
 TypeError: can only concatenate str (not "builtin_function_or_method") to str
 
+
+
+import pandas as pd
+import json
+
+class Wildfire:
+    def __init__(self, property_file_path, hazard_file_path):
+        # Read the property and hazard Excel files into dataframes
+        self.property_data = pd.read_excel(property_file_path)
+        self.hazard_data = pd.read_excel(hazard_file_path)
+        
+        # Concatenate County and State columns to create a common key
+        #self.property_data['County_State'] = self.property_data['County'] + '_' + self.property_data['State']
+        #self.hazard_data['County_State'] = self.hazard_data['County'] + '_' + self.hazard_data['State']
+
+        # Merge property and hazard data on the 'County_State' column
+        self.merged_data = pd.merge( self.hazard_data,self.property_data, on='county', how='inner')
+
+    def predict_risk_score(self, address_json):
+        # Parse the JSON input
+        address_data = json.loads(address_json)
+        
+        # Extract County and State from the JSON
+        county = address_data.get('County').lower()
+        state = address_data.get('State').lower
+        
+        # Create a key for matching with the merged data
+        county_state_key = county + ',' + state
+        
+        # Filter the merged data for the given County_State
+        filtered_data = self.merged_data[self.merged_data['County_State'] == county_state_key]
+        
+        if len(filtered_data) == 0:
+            return "Address not found in the dataset"
+        
+        # Calculate the final risk score by multiplying Property Score and Exposure Score
+        final_score = filtered_data['Property_Score'] * filtered_data['Exposure_Score']
+        
+        return final_score.iloc[0]  # Return the final risk score for the given address
+
+# Example usage:
+property_file_path = 'vendor_property_attribute.xlsx'
+hazard_file_path = 'hazard_exposure_score.xlsx'
+wildfire = Wildfire(property_file_path, hazard_file_path)
+
+address_json = '{"County": "gwinnett county", "State": "georgia"}'
+risk_score = wildfire.predict_risk_score(address_json)
+print("Final Risk Score:", risk_score)
+
+
+
+
 ​
