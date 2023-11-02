@@ -9,69 +9,50 @@ Predict behavior to retain customers. You can analyze all relevant customer data
 
 STRT_LINE_1_DESC	CITY_NME	ST_ABBR_CD	ZIP_CD	Footprint_Area	Story_Num_BU	Square_Footage	Roof_Type_RF	Roof_Material_RF	Roof_Condition_RF	Roof_Evidence_RF	Solar_Panels_RF	Air_Conditioner_RF	Skylights_RF	Chimneys_RF	Tree_Overhang_RF	Gable_Wall_DI_RF	Building_Height_BU	Ground_Height_BU	DIS_ClosestBuilding_BU	DIS_Vegetation_BU	Tree_height_BU	DIS_Trees_BU	Pool_AR_PA	Pool_Enclosure_PA	Temporary_pool_PA	Trampoline_PA	Yard_Debris_PA	DIS_WaterBody_BU	DIS_Firestation_BU	DIS_Coast_BU	Construction	Occupancy	Year_built	No of Building																																																									
 
-
+from fastapi import FastAPI
 from pymongo import MongoClient
+from pydantic import BaseModel
+
+app = FastAPI()
 
 # Connect to MongoDB
 client = MongoClient('mongodb://localhost:27017')  # Adjust the connection URL as needed
 db = client['your_database_name']  # Replace 'your_database_name' with your actual database name
 collection = db['house_collection']
 
-# Assuming merge_data_score is a Pandas DataFrame
-for index, row in merge_data_score.iterrows():
-    # Extract the specified features from each row
-    document = {
-        'county': row['county'],
-        'exposure_score': row['exposure_score'],
-        'county_extracted': row['county_extracted'],
-        'STRT_LINE_1_DESC': row['STRT_LINE_1_DESC'],
-        'CITY_NME': row['CITY_NME'],
-        'ST_ABBR_CD': row['ST_ABBR_CD'],
-        'ZIP_CD': row['ZIP_CD'],
-        'Footprint_Area': row['Footprint_Area'],
-        'Story_Num_BU': row['Story_Num_BU'],
-        'Square_Footage': row['Square_Footage'],
-        'Roof_Type_RF': row['Roof_Type_RF'],
-        'Roof_Material_RF': row['Roof_Material_RF'],
-        'Roof_Condition_RF': row['Roof_Condition_RF'],
-        'Roof_Evidence_RF': row['Roof_Evidence_RF'],
-        'Solar_Panels_RF': row['Solar_Panels_RF'],
-        'Air_Conditioner_RF': row['Air_Conditioner_RF'],
-        'Skylights_RF': row['Skylights_RF'],
-        'Chimneys_RF': row['Chimneys_RF'],
-        'Tree_Overhang_RF': row['Tree_Overhang_RF'],
-        'Gable_Wall_DI_RF': row['Gable_Wall_DI_RF'],
-        'Building_Height_BU': row['Building_Height_BU'],
-        'Ground_Height_BU': row['Ground_Height_BU'],
-        'DIS_ClosestBuilding_BU': row['DIS_ClosestBuilding_BU'],
-        'DIS_Vegetation_BU': row['DIS_Vegetation_BU'],
-        'Tree_height_BU': row['Tree_height_BU'],
-        'DIS_Trees_BU': row['DIS_Trees_BU'],
-        'Pool_AR_PA': row['Pool_AR_PA'],
-        'Pool_Enclosure_PA': row['Pool_Enclosure_PA'],
-        'Temporary_pool_PA': row['Temporary_pool_PA'],
-        'Trampoline_PA': row['Trampoline_PA'],
-        'Yard_Debris_PA': row['Yard_Debris_PA'],
-        'DIS_WaterBody_BU': row['DIS_WaterBody_BU'],
-        'DIS_Firestation_BU': row['DIS_Firestation_BU'],
-        'DIS_Coast_BU': row['DIS_Coast_BU'],
-        'Construction': row['Construction'],
-        'Occupancy': row['Occupancy'],
-        'Year_built': row['Year_built'],
-        'No of Building': row['No of Building'],
-        'Roof_Material_Condition': row['Roof_Material_Condition'],
-        'Pools': row['Pools'],
-        'Primary_risk': row['Primary_risk'],
-        'Secondary_Risk': row['Secondary_Risk'],
-        'Total_Score': row['Total_Score'],
-        'Final_Score': row['Final_Score'],
-        'city_state': row['city_state'],
-        'county_name': row['county_name'],
-        'overall_scoring': row['overall_scoring']
-    }
+class AddressInput(BaseModel):
+    address: str
 
-    # Insert the document into the MongoDB collection
-    collection.insert_one(document)
+@app.post("/get_risk_score")
+async def get_risk_score(address_input: AddressInput):
+    # Query the MongoDB collection for the risk score based on the provided address
+    query = {"STRT_LINE_1_DESC": address_input.address}
+    result = collection.find_one(query, {"_id": 0, "Total_Score": 1})
 
-# Close the MongoDB connection
-client.close()
+    if result:
+        risk_score = result.get("Total_Score")
+        return {"address": address_input.address, "risk_score": risk_score}
+    else:
+        return {"address": address_input.address, "error": "Address not found"}
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+
+
+
+
+
+
+
+
+Replace 'your_database_name' with your actual database name and 'house_collection' with the name of the collection where your data is stored.
+
+Save this code to a Python file, and run it using UVicorn:
+bash
+Copy code
+uvicorn your_file_name:app --host 0.0.0.0 --port 8000
+Now, you have a FastAPI application running with an endpoint at http://localhost:8000/get_risk_score. You can send a POST request with an address as input, and it will search the MongoDB collection for the corresponding risk score and return it.
+
+Remember to customize the code further as needed for your specific use case, including handling error cases and adding security features if required.
