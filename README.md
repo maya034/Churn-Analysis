@@ -146,3 +146,21 @@ print("Final Risk Score:", risk_score)
 
 
 
+TypeError                                 Traceback (most recent call last)
+~\AppData\Local\Temp\1\ipykernel_24396\3875276643.py in <module>
+     43 
+     44 address_json = '{"County": "gwinnett county", "State": "georgia"}'
+---> 45 risk_score = wildfire.predict_risk_score(address_json)
+     46 print("Final Risk Score:", risk_score)
+     47 
+
+~\AppData\Local\Temp\1\ipykernel_24396\3875276643.py in predict_risk_score(self, address_json)
+     24 
+     25         # Create a key for matching with the merged data
+---> 26         county_state_key = county + ',' + state
+     27 
+     28         # Filter the merged data for the given County_State
+
+TypeError: can only concatenate str (not "builtin_function_or_method") to str
+
+​
