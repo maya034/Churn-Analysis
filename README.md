@@ -19,8 +19,11 @@ collection = db['house_collection']
 
 # Assuming merge_data_score is a Pandas DataFrame
 for index, row in merge_data_score.iterrows():
-    # Extract the specific fields from each row
+    # Extract the specified features from each row
     document = {
+        'county': row['county'],
+        'exposure_score': row['exposure_score'],
+        'county_extracted': row['county_extracted'],
         'STRT_LINE_1_DESC': row['STRT_LINE_1_DESC'],
         'CITY_NME': row['CITY_NME'],
         'ST_ABBR_CD': row['ST_ABBR_CD'],
@@ -55,31 +58,20 @@ for index, row in merge_data_score.iterrows():
         'Construction': row['Construction'],
         'Occupancy': row['Occupancy'],
         'Year_built': row['Year_built'],
-        'No of Building': row['No of Building']
+        'No of Building': row['No of Building'],
+        'Roof_Material_Condition': row['Roof_Material_Condition'],
+        'Pools': row['Pools'],
+        'Primary_risk': row['Primary_risk'],
+        'Secondary_Risk': row['Secondary_Risk'],
+        'Total_Score': row['Total_Score'],
+        'Final_Score': row['Final_Score'],
+        'city_state': row['city_state'],
+        'county_name': row['county_name'],
+        'overall_scoring': row['overall_scoring']
     }
-    
+
     # Insert the document into the MongoDB collection
     collection.insert_one(document)
 
 # Close the MongoDB connection
 client.close()
-
-
-
-
-
-
-
-'county', 'exposure_score', 'county_extracted', 'STRT_LINE_1_DESC',
-       'CITY_NME', 'ST_ABBR_CD', 'ZIP_CD', 'Footprint_Area', 'Story_Num_BU',
-       'Square_Footage', 'Roof_Type_RF', 'Roof_Material_RF',
-       'Roof_Condition_RF', 'Roof_Evidence_RF', 'Solar_Panels_RF',
-       'Air_Conditioner_RF', 'Skylights_RF', 'Chimneys_RF', 'Tree_Overhang_RF',
-       'Gable_Wall_DI_RF', 'Building_Height_BU', 'Ground_Height_BU',
-       'DIS_ClosestBuilding_BU', 'DIS_Vegetation_BU', 'Tree_height_BU',
-       'DIS_Trees_BU', 'Pool_AR_PA', 'Pool_Enclosure_PA', 'Temporary_pool_PA',
-       'Trampoline_PA', 'Yard_Debris_PA', 'DIS_WaterBody_BU',
-       'DIS_Firestation_BU', 'DIS_Coast_BU', 'Construction', 'Occupancy',
-       'Year_built', 'No of Building', 'Roof_Material_Condition', 'Pools',
-       'Primary_risk', 'Secondary_Risk', 'Total_Score', 'Final_Score',
-       'city_state', 'county_name', 'overall_scoring'
