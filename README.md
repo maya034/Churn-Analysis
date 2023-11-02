@@ -277,5 +277,8 @@ risk_score = wildfire.predict_risk_score(address_json)
 print("Final Risk Score:", risk_score)
 
 
-
+ File "C:\Users\mayank205427\AppData\Local\Temp\1\ipykernel_24396\2076836893.py", line 46
+    ​
+    ^
+SyntaxError: invalid non-printable character U+200B
 ​
