@@ -341,4 +341,92 @@ address_json = '{"County": "gwinnett county", "State": "georgia"}'
 risk_score = wildfire.predict_risk_score(address_json)
 print("Final Risk Score:", risk_score)
 
+
+
+
+
+
+
+import pandas as pd
+from sklearn.externals import joblib
+from pymongo import MongoClient
+
+class PropertyDataProcessor:
+    def __init__(self, property_file_path, hazard_file_path, model_file_path, db_name, collection_name):
+        self.property_attributes = pd.read_excel(property_file_path)
+        self.hazard_values = pd.read_excel(hazard_file_path)
+        self.model = joblib.load(model_file_path)
+
+        # Merge the two DataFrames on the common column (County_State)
+        self.merged_data = pd.merge(self.property_attributes, self.hazard_values, how='inner', on='County_State')
+
+        # MongoDB Connection
+        self.client = MongoClient('localhost', 27017)  # Modify connection details as needed
+        self.db = self.client[db_name]
+        self.collection = self.db[collection_name]
+
+    def convert_to_categories(self, categorical_features):
+        for feature in categorical_features:
+            self.merged_data[feature] = self.merged_data[feature].astype('category')
+
+    def calculate_property_score(self, feature_weights):
+        self.merged_data['Property_Score'] = 0
+        for feature, weight in feature_weights.items():
+            self.merged_data['Property_Score'] += self.merged_data[feature].cat.codes * weight
+
+    def insert_into_mongodb(self):
+        records = self.merged_data.to_dict(orient='records')
+        self.collection.insert_many(records)
+
+    def process_new_row(self, new_row, feature_weights):
+        for feature in feature_weights:
+            new_row[feature] = new_row[feature].astype('category')
+
+        new_row['Property_Score'] = sum(new_row[feature].cat.codes * weight for feature, weight in feature_weights.items())
+
+        # Insert the new row into MongoDB
+        records = new_row.to_dict(orient='records')
+        self.collection.insert_many(records)
+
+
+# Example usage:
+
+# Define file paths
+property_file_path = "property_attributes.xlsx"
+hazard_file_path = "hazard_values.xlsx"
+model_file_path = "your_model.pkl"
+
+# Define MongoDB details
+db_name = 'your_database'
+collection_name = 'your_collection'
+
+# Create an instance of PropertyDataProcessor
+property_processor = PropertyDataProcessor(property_file_path, hazard_file_path, model_file_path, db_name, collection_name)
+
+# Define categorical features and weights
+categorical_features = ['STRT_LINE_1_DESC', 'CITY_NME', 'ST_ABBR_CD', 'Roof_Type_RF', 'Roof_Material_RF', 'Roof_Condition_RF', 'Roof_Evidence_RF', 'Solar_Panels_RF',
+                         'Air_Conditioner_RF', 'Skylights_RF', 'Chimneys_RF', 'Tree_Overhang_RF', 'Gable_Wall_DI_RF', 'Construction', 'Occupancy']
+
+feature_weights = {
+    'STRT_LINE_1_DESC': 0.1,
+    'CITY_NME': 0.05,
+    'ST_ABBR_CD': 0.05,
+    # ... add weights for other features
+}
+
+# Process data and insert into MongoDB
+property_processor.convert_to_categories(categorical_features)
+property_processor.calculate_property_score(feature_weights)
+property_processor.insert_into_mongodb()
+
+# Example new row
+new_row = pd.DataFrame({
+    'STRT_LINE_1_DESC': ['New Street'],
+    'CITY_NME': ['New City'],
+    'ST_ABBR_CD': ['NY'],
+    # ... other attributes for the new row
+})
+
+# Process the new row and insert into MongoDB
+property_processor.process_new_row(new_row, feature_weights)
 ​
