@@ -554,3 +554,108 @@ Occupancy
 Year_built
 No of Building
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import pandas as pd
+from pymongo import MongoClient
+
+class PropertyScoreCalculator:
+    def __init__(self, db_name, collection_name, push_new_data_to_mongo=True):
+        self.push_new_data_to_mongo = push_new_data_to_mongo
+
+        # MongoDB Connection
+        self.client = MongoClient('localhost', 27017)  # Modify connection details as needed
+        self.db = self.client[db_name]
+        self.collection = self.db[collection_name]
+
+    def fetch_property_attributes(self):
+        # Fetch all property attributes from MongoDB collection
+        query = {}  # You can add more specific query parameters if needed
+        projection = {'_id': 0}  # Exclude '_id' field from the result
+        property_attributes = pd.DataFrame(list(self.collection.find(query, projection)))
+
+        return property_attributes
+
+    def calculate_score(self, property_attributes):
+        # Fill NaN values with 1
+        property_attributes.fillna(1, inplace=True)
+
+        # Define risk buckets for different attributes (you can modify as needed)
+        risk_buckets = {
+            'Square_Footage': [(1, 2000), (2001, 4000), (4001, 6000), (6001, float('inf'))],
+            # Add more attributes and buckets
+        }
+
+        # Iterate through each attribute and apply the corresponding risk bucket
+        for attribute, buckets in risk_buckets.items():
+            property_attributes[attribute] = property_attributes[attribute].apply(
+                lambda x: next((score for start, end, score in buckets if start <= x <= end), None)
+            )
+
+        # Add logic for other steps of score calculation here
+
+        return property_attributes
+
+    def update_mongodb(self, property_attributes):
+        if self.push_new_data_to_mongo:
+            # Update MongoDB collection with the new data
+            records = property_attributes.to_dict(orient='records')
+            self.collection.insert_many(records)
+
+# Example usage:
+# Define MongoDB details
+db_name = 'your_database'
+collection_name = 'your_collection'
+
+# Create an instance of PropertyScoreCalculator
+score_calculator = PropertyScoreCalculator(db_name, collection_name)
+
+# Fetch existing property attributes from MongoDB
+existing_attributes = score_calculator.fetch_property_attributes()
+
+# Calculate scores for existing attributes
+calculated_scores = score_calculator.calculate_score(existing_attributes)
+
+# Update MongoDB with the calculated scores
+score_calculator.update_mongodb(calculated_scores)
