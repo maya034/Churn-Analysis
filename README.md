@@ -430,3 +430,82 @@ new_row = pd.DataFrame({
 # Process the new row and insert into MongoDB
 property_processor.process_new_row(new_row, feature_weights)
 ​
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import pandas as pd
+from pymongo import MongoClient
+
+class PropertyDataProcessor:
+    def __init__(self, hazard_file_path, db_name, collection_name):
+        self.hazard_values = pd.read_excel(hazard_file_path)
+
+        # MongoDB Connection
+        self.client = MongoClient('localhost', 27017)  # Modify connection details as needed
+        self.db = self.client[db_name]
+        self.collection = self.db[collection_name]
+
+    def fetch_property_attributes(self, attributes):
+        # Fetch specified property attributes from MongoDB collection
+        query = {}  # You can add more specific query parameters if needed
+        projection = {'_id': 0, 'County_State': 1, **{attr: 1 for attr in attributes}}
+        property_attributes = pd.DataFrame(list(self.collection.find(query, projection)))
+
+        return property_attributes
+
+    def merge_data(self, property_attributes):
+        # Merge property attributes and hazard values on the common column (County_State)
+        merged_data = pd.merge(property_attributes, self.hazard_values, how='inner', on='County_State')
+
+        # Calculate the final score by multiplying Property_Score and Exposure_Score
+        merged_data['Final_Score'] = merged_data['Property_Score'] * merged_data['Exposure_Score']
+
+        return merged_data
+
+    def update_mongodb(self, merged_data):
+        # Update MongoDB collection with the new data
+        records = merged_data.to_dict(orient='records')
+        self.collection.insert_many(records)
+
+# Example usage:
+# Define file paths and MongoDB details
+hazard_file_path = "hazard_values.xlsx"
+db_name = 'your_database'
+collection_name = 'your_collection'
+
+# Create an instance of PropertyDataProcessor
+property_processor = PropertyDataProcessor(hazard_file_path, db_name, collection_name)
+
+# Specify property attributes to fetch from MongoDB
+attributes_to_fetch = ['STRT_LINE_1_DESC', 'CITY_NME', 'ST_ABBR_CD', 'Roof_Type_RF', 'Roof_Material_RF', 'Roof_Condition_RF',
+                        'Roof_Evidence_RF', 'Solar_Panels_RF', 'Air_Conditioner_RF', 'Skylights_RF', 'Chimneys_RF', 'Tree_Overhang_RF',
+                        'Gable_Wall_DI_RF', 'Construction', 'Occupancy']
+
+# Fetch property attributes from MongoDB
+property_attributes = property_processor.fetch_property_attributes(attributes_to_fetch)
+
+# Merge data and calculate the final score
+merged_data = property_processor.merge_data(property_attributes)
+
+# Update MongoDB with the merged data
+property_processor.update_mongodb(merged_data)
+
