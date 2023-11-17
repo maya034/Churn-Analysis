@@ -796,7 +796,6 @@ print(calculated_scores)
 
 
 
-
 import pandas as pd
 from pymongo import MongoClient
 
