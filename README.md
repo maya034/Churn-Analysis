@@ -759,4 +759,3 @@ calculated_scores = score_calculator.calculate_score(existing_attributes)
 
 # You can use 'calculated_scores' for your analysis without changing the original data in MongoDB
 print(calculated_scores)
-
