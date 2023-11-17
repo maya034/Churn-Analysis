@@ -659,3 +659,27 @@ calculated_scores = score_calculator.calculate_score(existing_attributes)
 
 # Update MongoDB with the calculated scores
 score_calculator.update_mongodb(calculated_scores)
+
+
+
+
+# Define custom risk buckets as percentiles
+risk_buckets = {
+    85: (1, 2000),
+    90: (2001, 4000),
+    95: (4001, 6000),
+    100: (6001, float('inf'))
+}
+
+# Define a function to assign risk buckets based on square footage
+def define_risk_bucket(sqft):
+    if sqft==0:
+        return 1
+    else:
+        
+        for risk, (min_sqft, max_sqft) in risk_buckets.items():
+            if min_sqft <= sqft <= max_sqft:
+                return risk
+
+# Apply the risk bucketing function to each property
+df['Square_Footage'] = df['Square_Footage'].apply(define_risk_bucket)
