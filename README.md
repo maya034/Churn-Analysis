@@ -683,3 +683,80 @@ def define_risk_bucket(sqft):
 
 # Apply the risk bucketing function to each property
 df['Square_Footage'] = df['Square_Footage'].apply(define_risk_bucket)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import pandas as pd
+from pymongo import MongoClient
+
+class PropertyScoreCalculator:
+    def __init__(self, db_name, collection_name):
+        # MongoDB Connection
+        self.client = MongoClient('localhost', 27017)  # Modify connection details as needed
+        self.db = self.client[db_name]
+        self.collection = self.db[collection_name]
+
+    def fetch_property_attributes(self):
+        # Fetch all property attributes from MongoDB collection
+        query = {}  # You can add more specific query parameters if needed
+        projection = {'_id': 0}  # Exclude '_id' field from the result
+        property_attributes = pd.DataFrame(list(self.collection.find(query, projection)))
+
+        return property_attributes
+
+    def calculate_score(self, property_attributes):
+        # Create a copy to avoid modifying the original DataFrame
+        property_attributes_copy = property_attributes.copy()
+
+        # Define custom risk buckets as percentiles
+        risk_buckets = {
+            85: (1, 2000),
+            90: (2001, 4000),
+            95: (4001, 6000),
+            100: (6001, float('inf'))
+        }
+
+        # Define a function to assign risk buckets based on square footage
+        def define_risk_bucket(sqft):
+            if sqft == 0:
+                return 1
+            else:
+                for risk, (min_sqft, max_sqft) in risk_buckets.items():
+                    if min_sqft <= sqft <= max_sqft:
+                        return risk
+
+        # Apply the risk bucketing function to each property and create a temporary column
+        property_attributes_copy['Temp_Square_Footage'] = property_attributes_copy['Square_Footage'].apply(define_risk_bucket)
+
+        # Add logic for other steps of score calculation here
+
+        return property_attributes_copy
+
+# Example usage:
+# Define MongoDB details
+db_name = 'your_database'
+collection_name = 'your_collection'
+
+# Create an instance of PropertyScoreCalculator
+score_calculator = PropertyScoreCalculator(db_name, collection_name)
+
+# Fetch existing property attributes from MongoDB
+existing_attributes = score_calculator.fetch_property_attributes()
+
+# Calculate scores on the fly without modifying the raw data
+calculated_scores = score_calculator.calculate_score(existing_attributes)
+
+# You can use 'calculated_scores' for your analysis without changing the original data in MongoDB
+print(calculated_scores)
+
