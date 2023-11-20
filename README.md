@@ -1040,3 +1040,59 @@ TypeError                                 Traceback (most recent call last)
      16         (row['No of Building'] * num_buildings_percentage / 100) +
 
 TypeError: unsupported operand type(s) for /: 'str' and 'int'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import pandas as pd
+
+# Assuming df is your DataFrame
+
+# Convert relevant columns to numeric
+numeric_columns = ['Construction', 'Occupancy', 'Year_built', 'No of Building', 'Square_Footage', 'Story_Num_BU']
+df[numeric_columns] = df[numeric_columns].apply(pd.to_numeric, errors='coerce')
+
+# Loss due to primary features
+def calculate_primary_risk_score(row):
+    # Define the percentages for each primary feature
+    construction_percentage = 45
+    occupancy_percentage = 15
+    year_built_percentage = 10
+    num_buildings_percentage = 5
+    square_footage_percentage = 15
+    story_num_percentage = 10
+
+    # Calculate the risk score for the row
+    risk_score = (
+        (row['Construction'] * construction_percentage / 100) +
+        (row['Occupancy'] * occupancy_percentage / 100) +
+        (row['Year_built'] * year_built_percentage / 100) +
+        (row['No of Building'] * num_buildings_percentage / 100) +
+        (row['Square_Footage'] * square_footage_percentage / 100) +
+        (row['Story_Num_BU'] * story_num_percentage / 100)
+    )
+
+    return risk_score
+
+# Calculate the risk score for each row in the DataFrame
+df['Primary_risk'] = df.apply(calculate_primary_risk_score, axis=1)
