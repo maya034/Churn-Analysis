@@ -876,3 +876,167 @@ calculated_scores = score_calculator.calculate_score(existing_attributes)
 # You can use 'calculated_scores' for your analysis without changing the original data in MongoDB
 print(calculated_scores)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Loss due to primary features
+def calculate_primary_risk_score(row):
+    # Define the percentages for each primary feature
+    construction_percentage = 45
+    occupancy_percentage = 15
+    year_built_percentage = 10
+    num_buildings_percentage = 5
+    square_footage_percentage = 15
+    story_num_percentage = 10
+
+    # Calculate the risk score for the row
+    risk_score = (
+        (row['Construction'] * construction_percentage / 100) +
+        (row['Occupancy'] * occupancy_percentage / 100) +
+        (row['Year_built'] * year_built_percentage / 100) +
+        (row['No of Building'] * num_buildings_percentage / 100) +
+        (row['Square_Footage'] * square_footage_percentage / 100) +
+        (row['Story_Num_BU'] * story_num_percentage / 100)
+    )
+
+    return risk_score
+
+# Calculate the risk score for each row in the DataFrame
+df['Primary_risk'] = df.apply(calculate_primary_risk_score, axis=1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TypeError                                 Traceback (most recent call last)
+~\AppData\Local\Temp\1\ipykernel_16156\903857533.py in <module>
+     22 
+     23 # Calculate the risk score for each row in the DataFrame
+---> 24 df['Primary_risk'] = df.apply(calculate_primary_risk_score, axis=1)
+     25 
+
+~\Anaconda3\lib\site-packages\pandas\core\frame.py in apply(self, func, axis, raw, result_type, args, **kwargs)
+   8846             kwargs=kwargs,
+   8847         )
+-> 8848         return op.apply().__finalize__(self, method="apply")
+   8849 
+   8850     def applymap(
+
+~\Anaconda3\lib\site-packages\pandas\core\apply.py in apply(self)
+    731             return self.apply_raw()
+    732 
+--> 733         return self.apply_standard()
+    734 
+    735     def agg(self):
+
+~\Anaconda3\lib\site-packages\pandas\core\apply.py in apply_standard(self)
+    855 
+    856     def apply_standard(self):
+--> 857         results, res_index = self.apply_series_generator()
+    858 
+    859         # wrap results
+
+~\Anaconda3\lib\site-packages\pandas\core\apply.py in apply_series_generator(self)
+    871             for i, v in enumerate(series_gen):
+    872                 # ignore SettingWithCopy here in case the user mutates
+--> 873                 results[i] = self.f(v)
+    874                 if isinstance(results[i], ABCSeries):
+    875                     # If we have a view on v, we need to make a copy because
+
+~\AppData\Local\Temp\1\ipykernel_16156\903857533.py in calculate_primary_risk_score(row)
+     12     risk_score = (
+     13         (row['Construction'] * construction_percentage / 100) +
+---> 14         (row['Occupancy'] * occupancy_percentage / 100) +
+     15         (row['Year_built'] * year_built_percentage / 100) +
+     16         (row['No of Building'] * num_buildings_percentage / 100) +
+
+TypeError: unsupported operand type(s) for /: 'str' and 'int'
