@@ -1112,16 +1112,27 @@ df['Primary_risk'] = df.apply(calculate_primary_risk_score, axis=1)
 
 
 
-
-import pandas as pd
-
-# Assuming your DataFrame is named merged_data_score
-# Define the quantile thresholds for your categories
-quantiles = [0, 0.25, 0.5, 0.75, 1.0]
-
-# Use the qcut function to categorize the data based on quantiles
-merged_data_score['overall_category'] = pd.qcut(merged_data_score['overall_scoring'], q=quantiles, labels=['minor', 'moderate', 'high', 'very high'])
-
-# Print the updated DataFrame
-print(merged_data_score)
+def find_most_relevant_record(query_address, house_collection):
+    """
+    Find the most relevant document in the house_collection based on the 'address' field.
+ 
+    Args:
+        query_address (str): The query address to find the most relevant document.
+ 
+    Returns:
+        The most relevant document in the house_collection.
+    """
+    most_relevant_document = None
+    highest_relevance_score = 0
+ 
+    for document in house_collection.find({}):
+        address = document.get("address", "")
+        similarity_score = fuzz.ratio(query_address.lower(), address.lower())
+        if (similarity_score > 70) and (similarity_score > highest_relevance_score):
+            highest_relevance_score = similarity_score
+            most_relevant_document = document
+ 
+    return most_relevant_document
+has context menu
+Compose
 
