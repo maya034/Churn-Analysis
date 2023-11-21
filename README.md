@@ -67,101 +67,63 @@ Remember to customize the code further as needed for your specific use case, inc
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import pandas as pd
-import json
 
-class Wildfire:
-    def __init__(self, property_file_path, hazard_file_path):
-        # Read the property and hazard Excel files into dataframes
-        self.property_data = pd.read_excel(property_file_path)
-        self.hazard_data = pd.read_excel(hazard_file_path)
-        
-        # Concatenate County and State columns to create a common key
-        self.property_data['County_State'] = self.property_data['County'] + '_' + self.property_data['State']
-        self.hazard_data['County_State'] = self.hazard_data['County'] + '_' + self.hazard_data['State']
+# Assuming your DataFrame is named merged_data_score
+# Define the quantile values
+quantile_values = {
+    0.00: 0.357284,
+    0.25: 783.035629,
+    0.50: 2328.276703,
+    0.75: 4123.877565,
+    1.00: 63173.158836
+}
 
-        # Merge property and hazard data on the 'County_State' column
-        self.merged_data = pd.merge(self.property_data, self.hazard_data, on='County_State', how='inner')
+# Define a function to categorize values
+def categorize_score(score):
+    if score <= quantile_values[0.25]:
+        return 'minor'
+    elif score <= quantile_values[0.50]:
+        return 'moderate'
+    elif score <= quantile_values[0.75]:
+        return 'high'
+    else:
+        return 'very high'
 
-    def predict_risk_score(self, address_json):
-        # Parse the JSON input
-        address_data = json.loads(address_json)
-        
-        # Extract County and State from the JSON
-        county = address_data.get('County')
-        state = address_data.get('State')
-        
-        # Create a key for matching with the merged data
-        county_state_key = county + '_' + state
-        
-        # Filter the merged data for the given County_State
-        filtered_data = self.merged_data[self.merged_data['County_State'] == county_state_key]
-        
-        if len(filtered_data) == 0:
-            return "Address not found in the dataset"
-        
-        # Calculate the final risk score by multiplying Property Score and Exposure Score
-        final_score = filtered_data['Property_Score'] * filtered_data['Exposure_Score']
-        
-        return final_score.iloc[0]  # Return the final risk score for the given address
+# Apply the categorization function to create a new column
+merged_data_score['overall_category'] = merged_data_score['overall_scoring'].apply(categorize_score)
 
-# Example usage:
-property_file_path = 'property_data.xlsx'
-hazard_file_path = 'hazard_data.xlsx'
-wildfire = Wildfire(property_file_path, hazard_file_path)
-
-address_json = '{"County": "YourCounty", "State": "YourState"}'
-risk_score = wildfire.predict_risk_score(address_json)
-print("Final Risk Score:", risk_score)
+# Print the updated DataFrame
+print(merged_data_score)
 
 
 
-TypeError                                 Traceback (most recent call last)
-~\AppData\Local\Temp\1\ipykernel_24396\3875276643.py in <module>
-     43 
-     44 address_json = '{"County": "gwinnett county", "State": "georgia"}'
----> 45 risk_score = wildfire.predict_risk_score(address_json)
-     46 print("Final Risk Score:", risk_score)
-     47 
 
-~\AppData\Local\Temp\1\ipykernel_24396\3875276643.py in predict_risk_score(self, address_json)
-     24 
-     25         # Create a key for matching with the merged data
----> 26         county_state_key = county + ',' + state
-     27 
-     28         # Filter the merged data for the given County_State
 
-TypeError: can only concatenate str (not "builtin_function_or_method") to str
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
