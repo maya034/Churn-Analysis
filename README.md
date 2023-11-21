@@ -1111,28 +1111,40 @@ df['Primary_risk'] = df.apply(calculate_primary_risk_score, axis=1)
 
 
 
+import pandas as pd
+from fuzzywuzzy import fuzz
 
-def find_most_relevant_record(query_address, house_collection):
+def find_most_relevant_record(query_address, fire_scores_file):
     """
-    Find the most relevant document in the house_collection based on the 'address' field.
- 
+    Find the most relevant record in the fire scores Excel file based on the 'address' column.
+
     Args:
-        query_address (str): The query address to find the most relevant document.
- 
+        query_address (str): The query address to find the most relevant record.
+        fire_scores_file (str): The path to the Excel file containing fire scores.
+
     Returns:
-        The most relevant document in the house_collection.
+        The most relevant record in the fire scores Excel file.
     """
-    most_relevant_document = None
+    most_relevant_record = None
     highest_relevance_score = 0
- 
-    for document in house_collection.find({}):
-        address = document.get("address", "")
+
+    # Read the Excel file into a DataFrame
+    fire_scores_df = pd.read_excel(fire_scores_file)
+
+    # Iterate through the DataFrame to find the most relevant record
+    for index, row in fire_scores_df.iterrows():
+        address = row.get("address", "")
         similarity_score = fuzz.ratio(query_address.lower(), address.lower())
         if (similarity_score > 70) and (similarity_score > highest_relevance_score):
             highest_relevance_score = similarity_score
-            most_relevant_document = document
- 
-    return most_relevant_document
-has context menu
-Compose
+            most_relevant_record = row.to_dict()
+
+    return most_relevant_record
+
+# Example usage:
+query_address = "123 Main Street"  # Replace with your actual query address
+fire_scores_file_path = "static/fire_scores.xlsx"  # Replace with the actual path to your Excel file
+
+result = find_most_relevant_record(query_address, fire_scores_file_path)
+print(result)
 
