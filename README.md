@@ -1096,3 +1096,70 @@ def calculate_primary_risk_score(row):
 
 # Calculate the risk score for each row in the DataFrame
 df['Primary_risk'] = df.apply(calculate_primary_risk_score, axis=1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import pandas as pd
+
+# Assuming your DataFrame is named merged_data_score
+# Define the quantile thresholds for your categories
+quantiles = [0, 0.25, 0.5, 0.75, 1.0]
+
+# Use the qcut function to categorize the data based on quantiles
+merged_data_score['overall_category'] = pd.qcut(merged_data_score['overall_scoring'], q=quantiles, labels=['minor', 'moderate', 'high', 'very high'])
+
+# Print the updated DataFrame
+print(merged_data_score)
+
