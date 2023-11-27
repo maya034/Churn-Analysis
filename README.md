@@ -1177,3 +1177,17 @@ merged_data_score['overall_category'], quantile_bins = pd.qcut(merged_data_score
 # Print the updated DataFrame and quantile values
 print(merged_data_score)
 print("Quantile values:", quantile_bins)
+
+
+
+
+
+quantile_values = {
+        0.0: 3.57284483e-01,
+        1/6: 3.88659052e+02,
+        2/6: 1.31823850e+03,
+        3/6: 2.32827670e+03,
+        4/6: 3.25647119e+03,
+        5/6: 6.96491284e+03,
+        6/6: 6.31731588e+04
+    }
