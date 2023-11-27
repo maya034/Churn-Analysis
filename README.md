@@ -1203,3 +1203,27 @@ merged_data_score['Fire_score_category'], quantile_bins = pd.qcut(merged_data_sc
 # Print the updated DataFrame and quantile values
 print(merged_data_score)
 print("Quantile values:", quantile_bins)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import pyautogui
+import time
+interval = 60
+while True:i
+    pyautogui.moveRel(1, 0)
+    pyautogui.moveRel(-1, 0)
+    
+    pyautogui.press('f24')
+    
+    time.sleep(interval)
