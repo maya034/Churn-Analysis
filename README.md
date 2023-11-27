@@ -1148,3 +1148,32 @@ fire_scores_file_path = "static/fire_scores.xlsx"  # Replace with the actual pat
 result = find_most_relevant_record(query_address, fire_scores_file_path)
 print(result)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import pandas as pd
+
+# Assuming your DataFrame is named merged_data_score
+# Define the quantile thresholds for the six categories
+quantiles = [0, 0.2, 0.4, 0.6, 0.8, 1.0]
+
+# Use the qcut function to categorize the data and get quantile values
+merged_data_score['overall_category'], quantile_bins = pd.qcut(merged_data_score['overall_scoring'], q=quantiles, labels=['Minimal', 'Minor', 'Moderate', 'Major', 'Severe', 'Extreme'], retbins=True)
+
+# Print the updated DataFrame and quantile values
+print(merged_data_score)
+print("Quantile values:", quantile_bins)
