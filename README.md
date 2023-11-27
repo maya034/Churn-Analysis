@@ -1191,3 +1191,15 @@ quantile_values = {
         5/6: 6.96491284e+03,
         6/6: 6.31731588e+04
     }
+
+
+
+# Define the quantile thresholds for the six categories
+quantiles = [0, 1/6, 2/6, 3/6, 4/6,5/6, 1.0]
+
+# Use the qcut function to categorize the data and get quantile values
+merged_data_score['Fire_score_category'], quantile_bins = pd.qcut(merged_data_score['overall_scoring'], q=quantiles, labels=['Minimal', 'Minor', 'Moderate', 'Major', 'Severe', 'Extreme'], retbins=True)
+
+# Print the updated DataFrame and quantile values
+print(merged_data_score)
+print("Quantile values:", quantile_bins)
