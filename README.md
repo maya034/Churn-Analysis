@@ -1403,39 +1403,31 @@ score_calculator.update_addresses_in_mongo(modified_addresses)
 
 
 import pandas as pd
-
-def excel_to_mongodb_json(excel_file_path, json_file_path):
-    # Read Excel file into a pandas DataFrame
-    df = pd.read_excel(excel_file_path)
-
-    # Convert DataFrame to a list of dictionaries
-    data = df.to_dict(orient='records')
-
-    # Write the data to a JSON file
-    with open(json_file_path, 'w') as json_file:
-        json_file.write('[')
-        for idx, entry in enumerate(data):
-            json.dump(entry, json_file, default=str)
-            if idx < len(data) - 1:
-                json_file.write(',\n')
-        json_file.write(']')
-
-if __name__ == "__main__":
-    # Specify the path to your Excel file and the desired JSON file
-    excel_file_path = 'path/to/your/excel/file.xlsx'
-    json_file_path = 'path/to/save/json/file.json'
-
-    # Call the function to convert Excel to JSON for MongoDB import
-    excel_to_mongodb_json(excel_file_path, json_file_path)
-
-    print(f"Conversion successful. JSON file saved at {json_file_path}")
+import json
 
 
+class Wildfire:
+    def __init__(self, property_file_path, hazard_file_path):
+        # Read the property and hazard Excel files into dataframes
+        self.property_data = pd.read_excel(property_file_path)
+        self.hazard_data = pd.read_excel(hazard_file_path)
 
+        # Merge property and hazard data on the 'County' column (assuming 'County' is the common key)
+        self.merged_data = pd.merge(
+            self.hazard_data, self.property_data, on="county", how="inner"
+        )
 
+    def predict_risk_score(self, address):
+        # Parse the JSON input
+        # Filter the merged data for the given County_State
+        filtered_data = self.merged_data[self.merged_data["Address"] == address]
 
+        if len(filtered_data) == 0:
+            return ""
 
+        # Calculate the final risk score by multiplying Property Score and Exposure Score
+        final_score = filtered_data["Final_Score"] * filtered_data["exposure_score"]
 
+        print(final_score.iloc[0])
 
-
-
+        return final_score.iloc[0]  # Return the final risk score for the given address
