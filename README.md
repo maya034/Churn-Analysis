@@ -59,6 +59,77 @@ Remember to customize the code further as needed for your specific use case, inc
 
 
 
+import pandas as pd
+from pymongo import MongoClient
+
+class PropertyScoreCalculator:
+    def __init__(self, db_name, collection_name, push_new_data_to_mongo=True):
+        self.push_new_data_to_mongo = push_new_data_to_mongo
+
+        # MongoDB Connection
+        self.client = MongoClient('localhost', 27017)  # Modify connection details as needed
+        self.db = self.client[db_name]
+        self.collection = self.db[collection_name]
+
+    def fetch_all_addresses(self):
+        # Fetch all house addresses and features from MongoDB collection
+        query = {}  # You can add more specific query parameters if needed
+        projection = {'_id': 0}  # Exclude '_id' field from the result
+        all_addresses = pd.DataFrame(list(self.collection.find(query, projection)))
+
+        return all_addresses
+
+    def define_risk_bucket(self, sqft):
+        # Define custom risk buckets as percentiles
+        risk_buckets = {
+            85: (1, 2000),
+            90: (2001, 4000),
+            95: (4001, 6000),
+            100: (6001, float('inf'))
+        }
+
+        # Assign risk buckets based on square footage
+        if sqft == 0:
+            return 1
+        else:
+            for risk, (min_sqft, max_sqft) in risk_buckets.items():
+                if min_sqft <= sqft <= max_sqft:
+                    return risk
+
+    def modify_addresses(self, addresses):
+        # Apply risk bucketing to 'Square_Footage'
+        addresses['RiskBucket_SquareFootage'] = addresses['Square_Footage'].apply(self.define_risk_bucket)
+
+        # Add logic for other feature modifications here
+
+        return addresses
+
+    def update_addresses_in_mongo(self, modified_addresses):
+        if self.push_new_data_to_mongo:
+            # Exclude any additional columns added during modification before updating MongoDB
+            columns_to_exclude = ['RiskBucket_SquareFootage']
+            modified_addresses_to_update = modified_addresses.drop(columns=columns_to_exclude)
+
+            # Update MongoDB collection with the modified data
+            records = modified_addresses_to_update.to_dict(orient='records')
+            self.collection.update_many({}, {'$set': records})
+
+# Example usage:
+# Define MongoDB details
+db_name = 'your_database'
+collection_name = 'addresses'
+
+# Create an instance of PropertyScoreCalculator
+score_calculator = PropertyScoreCalculator(db_name, collection_name)
+
+# Fetch all addresses from MongoDB
+all_addresses = score_calculator.fetch_all_addresses()
+
+# Modify addresses based on your requirements
+modified_addresses = score_calculator.modify_addresses(all_addresses)
+
+# Update the MongoDB collection with the modified data
+score_calculator.update_addresses_in_mongo(modified_addresses)
 
 
 
