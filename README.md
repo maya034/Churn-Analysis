@@ -1402,36 +1402,40 @@ score_calculator.update_addresses_in_mongo(modified_addresses)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import pandas as pd
 
-def excel_to_json(excel_file_path, json_file_path):
+def excel_to_mongodb_json(excel_file_path, json_file_path):
     # Read Excel file into a pandas DataFrame
     df = pd.read_excel(excel_file_path)
 
-    # Convert DataFrame to JSON and save to file
-    df.to_json(json_file_path, orient='records')
+    # Convert DataFrame to a list of dictionaries
+    data = df.to_dict(orient='records')
+
+    # Write the data to a JSON file
+    with open(json_file_path, 'w') as json_file:
+        json_file.write('[')
+        for idx, entry in enumerate(data):
+            json.dump(entry, json_file, default=str)
+            if idx < len(data) - 1:
+                json_file.write(',\n')
+        json_file.write(']')
 
 if __name__ == "__main__":
     # Specify the path to your Excel file and the desired JSON file
     excel_file_path = 'path/to/your/excel/file.xlsx'
     json_file_path = 'path/to/save/json/file.json'
 
-    # Call the function to convert Excel to JSON
-    excel_to_json(excel_file_path, json_file_path)
+    # Call the function to convert Excel to JSON for MongoDB import
+    excel_to_mongodb_json(excel_file_path, json_file_path)
 
     print(f"Conversion successful. JSON file saved at {json_file_path}")
+
+
+
+
+
+
+
+
+
+
