@@ -1342,3 +1342,111 @@ modified_addresses = score_calculator.modify_addresses(all_addresses)
 
 # Update the MongoDB collection with the modified data
 score_calculator.update_addresses_in_mongo(modified_addresses)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+quantile_values = {
+        0.0: 3.57284483e-01,
+        1/6: 3.88659052e+02,
+        2/6: 1.31823850e+03,
+        3/6: 2.32827670e+03,
+        4/6: 3.25647119e+03,
+        5/6: 6.96491284e+03,
+        6/6: 6.31731588e+04
+    }
+ 
+
+def categorize_score(score):
+    if score <= quantile_values[1/6]:
+        return 'Minimal'
+    elif score <= quantile_values[2/6]:
+        return 'Minor'
+    elif score <= quantile_values[3/6]:
+        return 'Moderate'
+    elif score <= quantile_values[4/6]:
+        return 'Major'
+    elif score <= quantile_values[5/6]:
+        return 'Severe'
+    elif score <= quantile_values[6/6]:
+        return 'Extreme'
+  
