@@ -7,7 +7,8 @@ Predict behavior to retain customers. You can analyze all relevant customer data
 
 
 import folium
-import pandas as pd
+from folium.plugins import MarkerCluster
+from geopy.geocoders import Nominatim
 
 # Sample 1000 random rows from the dataframe
 sample_data = df.sample(n=1000)
@@ -28,11 +29,25 @@ for index, row in sample_data.iterrows():
         popup=f"Fire Name: {row['FIRE_NAME']}, Date: {row['DISCOVERY_DATE']}, Size: {row['FIRE_SIZE']} acres"
     ).add_to(m)
 
+# Add a marker for the specified address
+address = "650 KLEBBA LN, MIAMI, FL 33133"
+geolocator = Nominatim(user_agent="my_geocoder")
+location = geolocator.geocode(address)
+
+if location:
+    folium.Marker(
+        location=[location.latitude, location.longitude],
+        popup=f"Address: {address}",
+        icon=folium.Icon(color='green')
+    ).add_to(m)
+
 # Save the map to an HTML file
-m.save('wildfire_map.html')
+m.save('wildfire_map_with_address.html')
 
 
-3650 KLEBBA LN	MIAMI	FL	33133
-680 Commerce Dr	Woodbury	MN	55125
-![Uploading image.png…]()
-																																																																																																					
+from IPython.display import IFrame
+
+# Replace 'wildfire_map_with_address.html' with the actual file path
+iframe = IFrame(src='wildfire_map_with_address.html', width=700, height=600)
+display(iframe)
+
