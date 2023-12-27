@@ -84,7 +84,7 @@ Regarding the internal project, I conducted comprehensive research on various co
 
 
 
-
+I always follow the rules and guidelines set by the company, ensuring compliance with our code of conduct and established policies. For example, in recent projects, I made sure to strictly follow our procedures, which resulted in [mention a positive outcome or achievement]. I also stay updated on client-specific requirements, helping us maintain strong client relationships. Additionally, I consistently meet submission deadlines on I Expense, emphasizing accuracy and timeliness. My commitment to compliance is a daily practice, contributing to our team's success. Looking ahead, I'm eager to continue upholding these standards and contributing to our culture of excellence
 
 
 
