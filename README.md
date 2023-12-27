@@ -76,6 +76,11 @@ display(iframe)
 
 
 
+Communication - Clear and Timely Communication/Feedback:
+Throughout the project, I consistently maintained transparent and timely communication with both team members and the manager. This ensured that all stakeholders were well-informed about project progress and any relevant updates.
+
+Performance - Timeliness, Quality, Documentation:
+Regarding the internal project, I conducted comprehensive research on various competitors in the wildfire domain and explored diverse methodologies. A detailed document was meticulously compiled, encompassing information on all approaches undertaken. This documentation facilitated a comprehensive presentation to the client, outlining our strategies. Additionally, we initiated the development of a streamlined pipeline, optimizing and automating our existing codebase to enhance efficiency.
 
 
 
@@ -83,16 +88,5 @@ display(iframe)
 
 
 
-Category	Overall Weightage	Sub-Category 	Goals	 	
-			Goal Name (Target to be defined for each Goal)	Guidelines	Actual Weightage	 	
-Financial	50%	Revenue	Project Performance and overall utilization	Communication - Clear and timely communication/feedback
-Performance - Timeliness, Quality, Documentation
-Customer Satisfaction (based on client feedback) and optimum utilization
-Optimization and automation*	40%	 	
- 	 	Compliance	Compliance	Compliance: - relating to company wide code of conduct, procedures and policies, client specific requirements, timelines and accuracy of submissions on I Expense etc.	10%	 	
-Strategic	30%	Strategic Initiatives	EXL Initiatives	1. Support with training, recruitment, onboarding (buddy), transitions.
-2. Support EXL initiatives by preparing training material, case studies	30%	 	
-People	20%	Development and Capability building	Self-development	- trainings attended
-- Knowledge transfer sessions
-- Technical and Behavioral skills
-- Completing certifications/working towards actuarial exams/associateship/fellowship	20%	 	
+
+ 	
