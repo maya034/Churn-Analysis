@@ -87,6 +87,10 @@ Regarding the internal project, I conducted comprehensive research on various co
 I always follow the rules and guidelines set by the company, ensuring compliance with our code of conduct and established policies. For example, in recent projects, I made sure to strictly follow our procedures, which resulted in [mention a positive outcome or achievement]. I also stay updated on client-specific requirements, helping us maintain strong client relationships. Additionally, I consistently meet submission deadlines on I Expense, emphasizing accuracy and timeliness. My commitment to compliance is a daily practice, contributing to our team's success. Looking ahead, I'm eager to continue upholding these standards and contributing to our culture of excellence
 
 
+I consistently prioritize and adhere to all aspects of compliance, including the company-wide code of conduct, established procedures, and policies. In doing so, I actively contribute to a work environment that aligns with our organizational values and ethical standards. For instance, during [specific project or initiative], I ensured strict adherence to our established procedures by [provide a specific example or achievement]. Additionally, my proactive approach to staying updated on any changes in client-specific requirements has been instrumental in maintaining strong client relationships. Furthermore, I have consistently met or exceeded timelines for submissions on I Expense, showcasing my dedication to timeliness and accuracy in financial processes.
+
+This commitment to compliance is not just a checkbox for me; it is ingrained in my daily work, contributing to the overall success of our team and the organization. Moving forward, I am eager to continue championing a culture of compliance and excellence, ensuring that our practices align seamlessly with industry standards and regulations."
+
 
 
 
