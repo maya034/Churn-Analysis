@@ -101,5 +101,5 @@ Moreover, I have been actively involved in sharing knowledge and insights with m
 My commitment to supporting the team extends beyond individual contributions, as I believe in fostering a collaborative and supportive work environment. Moving forward, I remain dedicated to playing a key role in the success of our training, recruitment, and onboarding initiatives, and I am enthusiastic about contributing to the broader EXL initiatives that drive our organizational growth."
 
 
-
+I have successfully completed all required training sessions and actively participated in knowledge transfer sessions, sharing insights and experiences with my teammates. In order to stay current and facilitate my continuous growth, I expanded my skill set by acquiring knowledge in new technologies such as MongoDB, modular programming, and time series approaches in machine learning. Additionally, I am currently undertaking learning initiatives in data engineering from another platform, aiming to deepen my understanding of cloud technologies and pipelines. My commitment to ongoing learning reflects my dedication to professional development and staying at the forefront of industry advancements.
  	
