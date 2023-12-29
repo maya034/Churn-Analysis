@@ -91,3 +91,18 @@ In terms of communication, I maintained transparent and timely communication acr
 
 
 Throughout the appraisal period, I have prioritized continuous learning, completing all required training sessions and expanding my skill set in technologies such as MongoDB and machine learning. My current engagement in data engineering learning initiatives underscores my commitment to staying at the forefront of industry advancements. I consistently supported the organization by aiding a team with a Python automation requirement, actively contributing to knowledge-sharing initiatives, and aligning with EXL initiatives by preparing project documentation. My commitment extends beyond individual contributions, aiming to contribute to broader organizational growth. Upholding compliance, including the code of conduct and policies, is integral to my daily work, contributing to a work environment aligned with organizational values. Looking forward, I am enthusiastic about upholding these standards and contributing to our culture of excellence. In terms of communication, I ensured transparent and timely communication throughout projects, while my contributions to project performance included comprehensive research, documentation, and the initiation of streamlined processes for enhanced efficiency.
+
+
+
+
+
+1. Please provide feedback on how your manager has supported you throughout the year.
+1. Please provide feedback on how your manager has supported you throughout the year.
+*		2. Has your manager provided you developmental inputs to help you perform better?
+2. Has your manager provided you developmental inputs to help you perform better?
+*		3. Does your manager demonstrate EXL values/The Better Way Code effectively?
+3. Does your manager demonstrate EXL values/The Better Way Code effectively?
+*		4. What do you want your manager to (Please share 1-2 bullet points each)
+a. Start
+b. Stop
+c. Continue
