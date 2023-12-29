@@ -106,3 +106,25 @@ Throughout the appraisal period, I have prioritized continuous learning, complet
 a. Start
 b. Stop
 c. Continue
+
+
+
+
+Since i have joined exl, my managers had been kept on changing from anubhav patra to namit chopra and then to visheshtha khanna and at last my current mananger is saurab. However, after a few months when i was moved to internal project i was completely working in nishant jairath’s team. Though in record he is not my manager. I was working under his supervision in his team. We had regular team meetings to foster open communication and also discuss about the problems and approaches to enhance collaboration and ensure diverse perspectives. These regular team meetings helped in comprehensive decisions and improved overall output. He also helped me to address other problems that i faced apart from the project. Also, the constructive feedbacks provided on my work really helped me to work effectively.
+
+
+
+
+Certainly! Here are some suggestions for each category:
+
+**Start:**
+- Implement regular one-on-one meetings to discuss career development and goals, fostering a more personalized and supportive relationship.
+- Initiate a mentorship program within the team to promote knowledge sharing and professional growth.
+
+**Stop:**
+- Cease micro-managing tasks to allow for more autonomy and creativity within the team.
+- Stop last-minute changes in project priorities to enhance workflow consistency and efficiency.
+
+**Continue:**
+- Continue providing constructive feedback on performance to facilitate ongoing improvement.
+- Maintain the practice of recognizing and appreciating team achievements to boost morale and motivation.
