@@ -79,52 +79,6 @@ display(iframe)
 
 
 
-Throughout the research period, I have successfully completed all mandatory training and actively participated in knowledge transfer to share insights and experiences with teams of colleagues. To keep up with industry trends, I expanded my skill set, moving into technologies like MongoDB, modular programming, and time management methods for learning. Additionally, I am currently involved in academic programs focused on data technology, aiming to enhance my understanding of cloud technologies and pipelines.
-
-In contributing to the organization, I played a key role in supporting a team with Python automation needs and actively supported knowledge sharing initiatives. This includes regularly updating my work, preparing project documentation in line with EXL policies, and promoting a collaborative working environment My commitment to continuing education and support extends to beyond individual contributions, as I look forward to contributing to EXL’s broader strategy for organizational growth.
-
-While demonstrating a strong commitment to compliance, I always prioritize and uphold all aspects of the established company-wide Code of Conduct, policies and procedures. This commitment strongly contributes to maintaining a work environment that is consistent with our organizational values ​​and ethical standards. Looking ahead, I am excited to uphold these values ​​and contribute to our excellent culture.
-
-In terms of communication, I maintained transparent and timely communication across projects, ensuring that the team and senior management were well aware of project progress. As for project performance, I thoroughly researched various competitors in the wildland fire industry, exploring different strategies
-
-
-
-
-Throughout the appraisal period, I have prioritized continuous learning, completing all required training sessions and expanding my skill set in technologies such as MongoDB and machine learning. My current engagement in data engineering learning initiatives underscores my commitment to staying at the forefront of industry advancements. I consistently supported the organization by aiding a team with a Python automation requirement, actively contributing to knowledge-sharing initiatives, and aligning with EXL initiatives by preparing project documentation. My commitment extends beyond individual contributions, aiming to contribute to broader organizational growth. Upholding compliance, including the code of conduct and policies, is integral to my daily work, contributing to a work environment aligned with organizational values. Looking forward, I am enthusiastic about upholding these standards and contributing to our culture of excellence. In terms of communication, I ensured transparent and timely communication throughout projects, while my contributions to project performance included comprehensive research, documentation, and the initiation of streamlined processes for enhanced efficiency.
-
-
-
-
-
-1. Please provide feedback on how your manager has supported you throughout the year.
-1. Please provide feedback on how your manager has supported you throughout the year.
-*		2. Has your manager provided you developmental inputs to help you perform better?
-2. Has your manager provided you developmental inputs to help you perform better?
-*		3. Does your manager demonstrate EXL values/The Better Way Code effectively?
-3. Does your manager demonstrate EXL values/The Better Way Code effectively?
-*		4. What do you want your manager to (Please share 1-2 bullet points each)
-a. Start
-b. Stop
-c. Continue
-
-
-
-
-Since i have joined exl, my managers had been kept on changing from anubhav patra to namit chopra and then to visheshtha khanna and at last my current mananger is saurab. However, after a few months when i was moved to internal project i was completely working in nishant jairath’s team. Though in record he is not my manager. I was working under his supervision in his team. We had regular team meetings to foster open communication and also discuss about the problems and approaches to enhance collaboration and ensure diverse perspectives. These regular team meetings helped in comprehensive decisions and improved overall output. He also helped me to address other problems that i faced apart from the project. Also, the constructive feedbacks provided on my work really helped me to work effectively.
-
-
-
-
-Certainly! Here are some suggestions for each category:
-
-**Start:**
-- Implement regular one-on-one meetings to discuss career development and goals, fostering a more personalized and supportive relationship.
-- Initiate a mentorship program within the team to promote knowledge sharing and professional growth.
-
-**Stop:**
-- Cease micro-managing tasks to allow for more autonomy and creativity within the team.
-- Stop last-minute changes in project priorities to enhance workflow consistency and efficiency.
-
-**Continue:**
-- Continue providing constructive feedback on performance to facilitate ongoing improvement.
-- Maintain the practice of recognizing and appreciating team achievements to boost morale and motivation.
+"python.terminal.activateEnvironment": true,
+"terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
+"python.condaPath": "C:\\Users\\Your User Name\\Anaconda3\\Scripts\\conda.exe"
