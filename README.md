@@ -78,7 +78,37 @@ display(iframe)
 
 
 
+from pymongo import MongoClient
+import json
 
-"python.terminal.activateEnvironment": true,
-"terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
-"python.condaPath": "C:\\Users\\Your User Name\\Anaconda3\\Scripts\\conda.exe"
+# Connect to the MongoDB server running on your localhost
+client = MongoClient('localhost', 27017)
+
+# Create or access a database
+db = client['your_database_name']
+
+# Access the collection you want to check
+collection1 = db['collection1']
+
+# Find all documents in the collection
+cursor = collection1.find({})
+
+# Iterate over the cursor to check each document
+for idx, document in enumerate(cursor):
+    try:
+        # Attempt to parse the document as JSON
+        parsed_json = json.loads(json.dumps(document, default=str))
+        print(f"Document {idx + 1} is valid JSON.")
+    except json.JSONDecodeError as e:
+        print(f"Error in document {idx + 1}: {e}")
+        print("Invalid JSON document:")
+        print(document)
+
+
+
+
+
+
+
+
+
