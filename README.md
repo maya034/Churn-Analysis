@@ -146,3 +146,58 @@ df_data.to_excel('updated_dataset.xlsx', index=False)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+For vulnerability, we have the property data from the vendor we have calculated the score using the weightage method.
+We have taken Vegetation around the building as the measure feature and it has direct relation to the wildfire. Apart from that we have divided other features into Primary and Secondary feature in which primary features contributes 75% to the score and secondary as 25%. Then we have multiplied this score to vegetation to get the final score. Later we multiply this score to exposure score of that particular county to get the vulnerability score.
+
+
