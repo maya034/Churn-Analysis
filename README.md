@@ -112,3 +112,37 @@ for idx, document in enumerate(cursor):
 
 
 
+
+
+
+
+
+import pandas as pd
+
+# Read the Excel file into a Pandas DataFrame
+excel_file = 'your_excel_file.xlsx'
+df_excel = pd.read_excel(excel_file)
+
+# Assuming you have another DataFrame `df_data` containing your dataset with addresses
+# Iterate through each row in your dataset
+for index, row in df_data.iterrows():
+    address = row['address']  # Extract the address from the current row
+    
+    # Partial matching logic
+    matched_row = df_excel[df_excel['address'].str.contains(address, case=False, na=False)]
+    
+    if not matched_row.empty:
+        # Assuming you have columns like 'roof_type', 'construction_type', etc.
+        # Extract attributes from the matched row and fill them into your dataset
+        # You can customize this part based on your Excel file structure
+        df_data.at[index, 'roof_type'] = matched_row['roof_type'].values[0]
+        df_data.at[index, 'construction_type'] = matched_row['construction_type'].values[0]
+        # Continue this process for other attributes
+        
+# Save or update the dataset with filled attributes
+df_data.to_excel('updated_dataset.xlsx', index=False)
+
+
+
+
+
