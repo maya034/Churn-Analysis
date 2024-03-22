@@ -4,196 +4,81 @@ Predict behavior to retain customers. You can analyze all relevant customer data
 
 
 
-import folium
-from folium.plugins import MarkerCluster, HeatMap
-from geopy.geocoders import Nominatim
-from math import radians, sin, cos, sqrt, atan2
-from IPython.display import IFrame
-
-# Function to calculate distance between two sets of coordinates (in kilometers)
-def calculate_distance(lat1, lon1, lat2, lon2):
-    # Radius of the Earth in kilometers
-    R = 6371.0
-
-    # Convert latitude and longitude from degrees to radians
-    lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
-
-    # Calculate the change in coordinates
-    dlat = lat2 - lat1
-    dlon = lon2 - lon1
-
-    # Haversine formula to calculate distance
-    a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
-    c = 2 * atan2(sqrt(a), sqrt(1 - a))
-
-    # Distance in kilometers
-    distance = R * c
-    return distance
-
-# Use the entire dataframe
-sample_data = df1
-
-# Address to be marked on the map
-address = "650 KLEBBA LN, MIAMI, FL 33133"
-
-# Get coordinates for the address
-geolocator = Nominatim(user_agent="my_geocoder")
-location = geolocator.geocode(address)
-
-if location:
-    address_lat, address_lon = location.latitude, location.longitude
-
-    # Create a base map centered around the specified address
-    m = folium.Map(location=[address_lat, address_lon], zoom_start=10)
-
-    # Create MarkerCluster for the address
-    marker_cluster = MarkerCluster().add_to(m)
-
-    # Add a marker for the specified address
-    folium.Marker(
-        location=[address_lat, address_lon],
-        popup=f"Address: {address}",
-        icon=folium.Icon(color='green')
-    ).add_to(marker_cluster)
-
-    # Filter data points within 50 km from the address
-    filtered_data = sample_data[
-        sample_data.apply(lambda row: calculate_distance(row['LATITUDE'], row['LONGITUDE'], address_lat, address_lon) <= 50, axis=1)
-    ]
-
-    # Create a heatmap based on fire size with a custom color gradient
-    heat_data = [[row['LATITUDE'], row['LONGITUDE'], row['FIRE_SIZE']] for index, row in filtered_data.iterrows()]
-    HeatMap(heat_data, radius=15, blur=10, gradient={0.4: 'yellow', 0.65: 'orange', 1: 'red'}).add_to(m)
-
-    # Save the map to an HTML file
-    m.save('wildfire_heatmap_custom_colors.html')
-
-
-# Display the map in the notebook
-iframe = IFrame(src='wildfire_heatmap_custom_colors.html', width=700, height=600)
-display(iframe)
 
 
 
 
 
 
-from pymongo import MongoClient
+
+
 import json
 
-# Connect to the MongoDB server running on your localhost
-client = MongoClient('localhost', 27017)
+# Load the provided JSON annotations
+with open('annotations.json', 'r') as f:
+    annotations = json.load(f)
 
-# Create or access a database
-db = client['your_database_name']
+# Initialize COCO format dictionary
+coco_data = {
+    "info": {},
+    "licenses": [],
+    "categories": [],
+    "images": [],
+    "annotations": []
+}
 
-# Access the collection you want to check
-collection1 = db['collection1']
+# Define category mapping
+category_mapping = {
+    "roof": 1,
+    "tree_overhang": 2,
+    "chimney": 3,
+    "vegetation": 4,
+    "debris": 5
+}
 
-# Find all documents in the collection
-cursor = collection1.find({})
+# Add categories to COCO data
+for label, category_id in category_mapping.items():
+    coco_data["categories"].append({
+        "id": category_id,
+        "name": label,
+        "supercategory": "object"
+    })
 
-# Iterate over the cursor to check each document
-for idx, document in enumerate(cursor):
-    try:
-        # Attempt to parse the document as JSON
-        parsed_json = json.loads(json.dumps(document, default=str))
-        print(f"Document {idx + 1} is valid JSON.")
-    except json.JSONDecodeError as e:
-        print(f"Error in document {idx + 1}: {e}")
-        print("Invalid JSON document:")
-        print(document)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import pandas as pd
-
-# Read the Excel file into a Pandas DataFrame
-excel_file = 'your_excel_file.xlsx'
-df_excel = pd.read_excel(excel_file)
-
-# Assuming you have another DataFrame `df_data` containing your dataset with addresses
-# Iterate through each row in your dataset
-for index, row in df_data.iterrows():
-    address = row['address']  # Extract the address from the current row
+# Iterate through annotations and convert to COCO format
+image_id = 1
+annotation_id = 1
+for annotation in annotations["shapes"]:
+    # Extract label, points, and category_id
+    label = annotation["label"]
+    points = annotation["points"]
+    category_id = category_mapping.get(label)
     
-    # Partial matching logic
-    matched_row = df_excel[df_excel['address'].str.contains(address, case=False, na=False)]
+    # Add image info to COCO data
+    coco_data["images"].append({
+        "id": image_id,
+        "file_name": "image_{}.jpg".format(image_id),
+        "width": 500,  # Example width, replace with actual image width
+        "height": 500  # Example height, replace with actual image height
+    })
     
-    if not matched_row.empty:
-        # Assuming you have columns like 'roof_type', 'construction_type', etc.
-        # Extract attributes from the matched row and fill them into your dataset
-        # You can customize this part based on your Excel file structure
-        df_data.at[index, 'roof_type'] = matched_row['roof_type'].values[0]
-        df_data.at[index, 'construction_type'] = matched_row['construction_type'].values[0]
-        # Continue this process for other attributes
-        
-# Save or update the dataset with filled attributes
-df_data.to_excel('updated_dataset.xlsx', index=False)
+    # Add annotation to COCO data
+    coco_data["annotations"].append({
+        "id": annotation_id,
+        "image_id": image_id,
+        "category_id": category_id,
+        "segmentation": [list(map(int, point)) for point in points],  # Convert points to integers
+        "area": 0,  # Area can be calculated if needed
+        "bbox": [],  # Bounding box can be calculated if needed
+        "iscrowd": 0  # Indicate if the annotation represents a crowd
+    })
+    
+    # Increment image_id and annotation_id
+    image_id += 1
+    annotation_id += 1
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-https://www.nearmap.com/us/en/aerial-view-blog/before-and-after-pictures-of-hurricanes-laura-and-delta?utm_source=google&utm_medium=organic
-
+# Save the converted annotations to a JSON file
+with open('annotations_coco.json', 'w') as f:
+    json.dump(coco_data, f)
 
 
 
