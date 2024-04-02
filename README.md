@@ -276,3 +276,34 @@ def plot_map(
     print(f"Elapsed Time seconds:", (end_time - start_time))
     return property_map
 
+
+
+
+
+
+
+
+
+
+
+
+https://www.google.com/imgres?q=internal%20damages%20in%20house%20after%20hurricane&imgurl=https%3A%2F%2Fc8.alamy.com%2Fcomp%2F2BC8FRX%2Fa-house-is-ravaged-by-hurricane-sandy-flood-waters-from-the-ocean-crashed-through-the-house-pushing-all-furniture-and-a-piano-against-the-wall-2BC8FRX.jpg&imgrefurl=https%3A%2F%2Fwww.alamy.com%2Fstock-photo%2Fflood-damage-house.html&docid=TDck0jM3CvtQKM&tbnid=EzFz4QYvO3RciM&vet=12ahUKEwiy_IGDtJaFAxUyTGwGHTeWCp8QM3oECHwQAA..i&w=1300&h=953&hcb=2&ved=2ahUKEwiy_IGDtJaFAxUyTGwGHTeWCp8QM3oECHwQAA
+
+https://www.google.com/imgres?q=internal%20condition%20of%20house%20after%20hurricane&imgurl=https%3A%2F%2Fmedia.nbcconnecticut.com%2F2022%2F10%2F18847766615-1080pnbcstations.jpg%3Fquality%3D85%26strip%3Dall%26resize%3D1200%252C675&imgrefurl=https%3A%2F%2Fwww.nbcconnecticut.com%2Fnews%2Fnational-international-news%2F3-former-ct-residents-cleaning-up-after-florida-homes-damaged-by-hurricane-ian%2F2884800%2F&docid=LwoxhAmRd0xhUM&tbnid=1Io7Dqhhf9w5OM&vet=12ahUKEwjp0LrWtJaFAxVd3TgGHVrRBX0QM3oECGgQAA..i&w=1200&h=675&hcb=2&itg=1&ved=2ahUKEwjp0LrWtJaFAxVd3TgGHVrRBX0QM3oECGgQAA
+
+
+https://www.google.com/imgres?q=internal%20damages%20in%20house%20after%20hurricane&imgurl=https%3A%2F%2Fi.insider.com%2F57bc80798a4565833d8cb348%3Fwidth%3D750%26format%3Djpeg%26auto%3Dwebp&imgrefurl=https%3A%2F%2Fwww.businessinsider.com%2Fhomes-destroyed-by-hurricane-katrina-2016-8&docid=khpXmAKZoxRlDM&tbnid=nkX_3QZj0aG3WM&vet=12ahUKEwiy_IGDtJaFAxUyTGwGHTeWCp8QM3oECFMQAA..i&w=750&h=529&hcb=2&ved=2ahUKEwiy_IGDtJaFAxUyTGwGHTeWCp8QM3oECFMQAA
+
+https://www.google.com/imgres?q=internal%20damages%20in%20house%20after%20hurricane&imgurl=https%3A%2F%2Fmedia.cnn.com%2Fapi%2Fv1%2Fimages%2Fstellar%2Fprod%2F181015194322-03-mandi-jackson-hurricane-damage.jpg%3Fq%3Dw_2500%2Ch_1406%2Cx_0%2Cy_0%2Cc_fill&imgrefurl=https%3A%2F%2Fwww.cnn.com%2Fvideos%2Fus%2F2018%2F10%2F15%2Fhurricane-michael-journey-home-jnd-orig.cnn&docid=a3V0Y1t6uJb9-M&tbnid=E0i5Z1O7CILwFM&vet=12ahUKEwiy_IGDtJaFAxUyTGwGHTeWCp8QM3oECGMQAA..i&w=2500&h=1406&hcb=2&ved=2ahUKEwiy_IGDtJaFAxUyTGwGHTeWCp8QM3oECGMQAA
+
+
+https://www.google.com/imgres?q=internal%20damages%20in%20house%20after%20hurricane&imgurl=https%3A%2F%2Frestoration1.com%2Fimages%2F2023%2F07%2Fshutterstock_1843161208.jpg&imgrefurl=https%3A%2F%2Frestoration1.com%2Fblog%2Ftypes-of-hurricane-damage-to-assess-your-home-after-a-storm%2F&docid=L_D122PbcG7InM&tbnid=odqd_t1Anu1-iM&vet=12ahUKEwiy_IGDtJaFAxUyTGwGHTeWCp8QM3oECFUQAA..i&w=500&h=334&hcb=2&ved=2ahUKEwiy_IGDtJaFAxUyTGwGHTeWCp8QM3oECFUQAA
+
+
+
+https://www.google.com/imgres?q=internal%20damages%20in%20house%20after%20hurricane&imgurl=https%3A%2F%2Fc8.alamy.com%2Fcomp%2FCXWGM7%2Finterior-of-small-chapel-destroyed-by-hurricane-katrina-five-years-CXWGM7.jpg&imgrefurl=https%3A%2F%2Fwww.alamy.com%2Fstock-photo%2Fkatrina-damage-interior.html&docid=ZYK9RnTBwHptfM&tbnid=HDNAMgKzft4hbM&vet=12ahUKEwiy_IGDtJaFAxUyTGwGHTeWCp8QM3oECEkQAA..i&w=1300&h=956&hcb=2&ved=2ahUKEwiy_IGDtJaFAxUyTGwGHTeWCp8QM3oECEkQAA
+
+
+
+https://www.google.com/imgres?q=internal%20damages%20in%20house%20after%20hurricane&imgurl=https%3A%2F%2Fbloximages.newyork1.vip.townnews.com%2Fktbs.com%2Fcontent%2Ftncms%2Fassets%2Fv3%2Feditorial%2F5%2F47%2F54745d7a-0a99-11ec-91df-2f5192fad767%2F612e8fe7348f8.image.jpg%3Fresize%3D400%252C300&imgrefurl=https%3A%2F%2Fwww.ktbs.com%2Fnews%2Fthousands-file-insurance-claims-to-repair-homes-damaged-by-hurricane-ida%2Farticle_4edf72dc-0a99-11ec-a3bd-ef38c4b60be8.html&docid=ddx1sS4SapJF7M&tbnid=HSgV9Ih-k3AS0M&vet=12ahUKEwiy_IGDtJaFAxUyTGwGHTeWCp8QM3oECHYQAA..i&w=400&h=300&hcb=2&itg=1&ved=2ahUKEwiy_IGDtJaFAxUyTGwGHTeWCp8QM3oECHYQAA
+
