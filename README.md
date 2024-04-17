@@ -332,3 +332,9 @@ https://risk.lexisnexis.com/insights-resources/white-paper/boosting-social-media
 https://www.kroll.com/en/services/cyber-risk/notification-monitoring/identity-monitoring
 
 https://cellebrite.com/en/home/?gad_source=1&gclid=CjwKCAjw5v2wBhBrEiwAXDDoJaMX5XpIdCCileNvhUP-pi7W6-_DcSMhtKANkmBO-WFSnieURU8Z3BoCh1IQAvD_BwE&utm_campaign=sf258976&utm_content=Homepage&utm_medium=Paid-Search&utm_source=adwords
+
+
+
+
+
+Social Sentinel (now Navigate360 Detect) (https://navigate360.com/solutions/) - While not as directly focused on insurance claims as SMI Aware, Social Sentinel offers social media monitoring that can identify potential threats. This could be relevant for insurance companies looking to assess broader risks beyond fraud.
