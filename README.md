@@ -307,3 +307,28 @@ https://www.google.com/imgres?q=internal%20damages%20in%20house%20after%20hurric
 
 https://www.google.com/imgres?q=internal%20damages%20in%20house%20after%20hurricane&imgurl=https%3A%2F%2Fbloximages.newyork1.vip.townnews.com%2Fktbs.com%2Fcontent%2Ftncms%2Fassets%2Fv3%2Feditorial%2F5%2F47%2F54745d7a-0a99-11ec-91df-2f5192fad767%2F612e8fe7348f8.image.jpg%3Fresize%3D400%252C300&imgrefurl=https%3A%2F%2Fwww.ktbs.com%2Fnews%2Fthousands-file-insurance-claims-to-repair-homes-damaged-by-hurricane-ida%2Farticle_4edf72dc-0a99-11ec-a3bd-ef38c4b60be8.html&docid=ddx1sS4SapJF7M&tbnid=HSgV9Ih-k3AS0M&vet=12ahUKEwiy_IGDtJaFAxUyTGwGHTeWCp8QM3oECHYQAA..i&w=400&h=300&hcb=2&itg=1&ved=2ahUKEwiy_IGDtJaFAxUyTGwGHTeWCp8QM3oECHYQAA
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://risk.lexisnexis.com/insights-resources/white-paper/boosting-social-media-investigations-with-highly-accurate-identity-resolution
+https://www.kroll.com/en/services/cyber-risk/notification-monitoring/identity-monitoring
+
+https://cellebrite.com/en/home/?gad_source=1&gclid=CjwKCAjw5v2wBhBrEiwAXDDoJaMX5XpIdCCileNvhUP-pi7W6-_DcSMhtKANkmBO-WFSnieURU8Z3BoCh1IQAvD_BwE&utm_campaign=sf258976&utm_content=Homepage&utm_medium=Paid-Search&utm_source=adwords
