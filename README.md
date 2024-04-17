@@ -338,3 +338,21 @@ https://cellebrite.com/en/home/?gad_source=1&gclid=CjwKCAjw5v2wBhBrEiwAXDDoJaMX5
 
 
 Social Sentinel (now Navigate360 Detect) (https://navigate360.com/solutions/) - While not as directly focused on insurance claims as SMI Aware, Social Sentinel offers social media monitoring that can identify potential threats. This could be relevant for insurance companies looking to assess broader risks beyond fraud.
+
+
+
+
+
+
+The code primarily uses the following libraries:
+
+1. **Pandas (`import pandas as pd`)**: Used for data manipulation and handling.
+2. **GeoPandas (`import geopandas as gpd`)**: Specifically designed for working with geospatial data.
+3. **Matplotlib (`import matplotlib.pyplot as plt`)**: Utilized for creating static, interactive, and animated visualizations in Python.
+4. **Cartopy (`import cartopy.crs as ccrs`)**: Provides cartographic projections and coordinate transformations.
+5. **Folium (`import folium`)**: Used for creating interactive leaflet maps.
+6. **Shapely (`from shapely.geometry import Point`)**: Offers geometric objects like points, lines, and polygons for working with geometric operations.
+7. **Multiprocessing (`import multiprocessing`)**: Enables parallel processing by utilizing multiple CPU cores.
+8. **OS (`import os`)**: Provides functions for interacting with the operating system, such as file manipulation and directory handling.
+
+These libraries collectively allow the code to handle geospatial data, create visualizations, and perform multiprocessing tasks efficiently.
