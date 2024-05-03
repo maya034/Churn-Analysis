@@ -342,17 +342,9 @@ Social Sentinel (now Navigate360 Detect) (https://navigate360.com/solutions/) - 
 
 
 
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD "-IC:\Program Files\Python38\lib\site-packages\numpy\core\include" "-IC:\Program Files\Python38\include" "-IC:\Program Files\Python38\Include" "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include" "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\ATLMFC\include" "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.22621.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.22621.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.22621.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.22621.0\\cppwinrt" "-IC:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" /Tcsrc/_geoslib.c /Fobuild\temp.win-amd64-cpython-38\Release\src/_geoslib.obj
+_geoslib.c
+C:\Program Files\Python38\lib\site-packages\numpy\core\include\numpy\npy_1_7_deprecated_api.h(14) : Warning Msg: Using deprecated NumPy API, disable it with #define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
+src/_geoslib.c(1257): fatal error C1083: Cannot open include file: 'geos_c.h': No such file or directory
+error: command 'C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX86\\x64\\cl.exe' failed with exit code 2
 
-
-The code primarily uses the following libraries:
-
-1. **Pandas (`import pandas as pd`)**: Used for data manipulation and handling.
-2. **GeoPandas (`import geopandas as gpd`)**: Specifically designed for working with geospatial data.
-3. **Matplotlib (`import matplotlib.pyplot as plt`)**: Utilized for creating static, interactive, and animated visualizations in Python.
-4. **Cartopy (`import cartopy.crs as ccrs`)**: Provides cartographic projections and coordinate transformations.
-5. **Folium (`import folium`)**: Used for creating interactive leaflet maps.
-6. **Shapely (`from shapely.geometry import Point`)**: Offers geometric objects like points, lines, and polygons for working with geometric operations.
-7. **Multiprocessing (`import multiprocessing`)**: Enables parallel processing by utilizing multiple CPU cores.
-8. **OS (`import os`)**: Provides functions for interacting with the operating system, such as file manipulation and directory handling.
-
-These libraries collectively allow the code to handle geospatial data, create visualizations, and perform multiprocessing tasks efficiently.
