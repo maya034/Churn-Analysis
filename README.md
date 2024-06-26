@@ -160,30 +160,21 @@ By comprehensively annotating these key damage attributes, you can create a rich
 
 
 
-Certainly! The given code is a set of conditions that categorize insurance policies into different risk categories based on various features. Here’s a detailed explanation in sentences:
 
-1. **Easy Category:**
-   - The policy belongs to the easy category if it meets all of the following conditions:
-     - The property is located in a low-risk zone for both fire and hurricane.
-     - The roof condition is either new or good.
-     - There is no or only minor evidence of roof damage.
-     - The policy coverage amount is less than or equal to $200,000.
-     - The policy has a claim history of 1 or fewer claims.
+Training data shape: (700, 807)
+Testing data shape: (300, 807)
+Classification Report:
+              precision    recall  f1-score   support
 
-2. **Medium Category:**
-   - The policy belongs to the medium category if it meets all of the following conditions:
-     - The property is located in a medium-risk zone for either fire or hurricane.
-     - The roof condition is either new or good.
-     - There is no or only minor evidence of roof damage.
-     - The policy coverage amount is greater than $200,000 but less than or equal to $350,000.
-     - The policy has a claim history of 2 or fewer claims.
+        Easy       0.00      0.00      0.00         4
+        Hard       0.98      0.96      0.97        53
+      Medium       0.98      1.00      0.99       243
 
-3. **Hard Category:**
-   - The policy belongs to the hard category if it meets all of the following conditions:
-     - The property is located in a high-risk zone for either fire or hurricane.
-     - The roof condition is either worn or good.
-     - There is major or minor evidence of roof damage.
-     - The policy coverage amount is greater than $350,000.
-     - The policy has a claim history of more than 2 claims.
+    accuracy                           0.98       300
+   macro avg       0.65      0.65      0.65       300
+weighted avg       0.96      0.98      0.97       300
 
-These conditions help classify policies into easy, medium, and hard categories based on the risk factors associated with the property and the policyholder's history.
+Confusion Matrix:
+[[  0   0   4]
+ [  0  51   2]
+ [  0   1 242]]
