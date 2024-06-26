@@ -159,7 +159,31 @@ By comprehensively annotating these key damage attributes, you can create a rich
 
 
 
-Hi Nishant, The data we filled has mismatches. The counts for the target variable conditions (easy, medium, hard) are imbalanced: medium has 900 and hard has 100, with no easy examples. This imbalance makes modeling difficult. We need to refill the data to ensure all three categories are approximately equal for better model performance.
 
+Certainly! The given code is a set of conditions that categorize insurance policies into different risk categories based on various features. Here’s a detailed explanation in sentences:
 
-CITY_NME	ST_ABBR_CD	ZIP_CD	Footprint_Area	Story_Num_BU	Square_Footage	Roof_Type_RF	Roof_Material_RF	Roof_Condition_RF	Roof_Evidence_RF	Solar_Panels_RF	Air_Conditioner_RF	Skylights_RF	Chimneys_RF	Tree_Overhang_RF	Gable_Wall_DI_RF	Building_Height_BU	Ground_Height_BU	DIS_ClosestBuilding_BU	DIS_Vegetation_BU	Tree_height_BU	DIS_Trees_BU	Pool_AR_PA	Pool_Enclosure_PA	Temporary_pool_PA	Trampoline_PA	Yard_Debris_PA	DIS_WaterBody_BU	DIS_Firestation_BU	DIS_Coast_BU	Construction	Occupancy	Year_built	No_of_Buildings	Roof_Material_Condition	Pools	population_density	median_income	education_level	age_of_housing	Policy_Number	Policy_Coverage_Amount	Deductible	Policy_Start_Date	Policy_End_Date	Claim_History	Premium_Amount	Coverage_Type	distance_to_coast	fire_risk_zone	hurricane_risk_zone	elevation	tree_coverage	damage_score	damage_level
+1. **Easy Category:**
+   - The policy belongs to the easy category if it meets all of the following conditions:
+     - The property is located in a low-risk zone for both fire and hurricane.
+     - The roof condition is either new or good.
+     - There is no or only minor evidence of roof damage.
+     - The policy coverage amount is less than or equal to $200,000.
+     - The policy has a claim history of 1 or fewer claims.
+
+2. **Medium Category:**
+   - The policy belongs to the medium category if it meets all of the following conditions:
+     - The property is located in a medium-risk zone for either fire or hurricane.
+     - The roof condition is either new or good.
+     - There is no or only minor evidence of roof damage.
+     - The policy coverage amount is greater than $200,000 but less than or equal to $350,000.
+     - The policy has a claim history of 2 or fewer claims.
+
+3. **Hard Category:**
+   - The policy belongs to the hard category if it meets all of the following conditions:
+     - The property is located in a high-risk zone for either fire or hurricane.
+     - The roof condition is either worn or good.
+     - There is major or minor evidence of roof damage.
+     - The policy coverage amount is greater than $350,000.
+     - The policy has a claim history of more than 2 claims.
+
+These conditions help classify policies into easy, medium, and hard categories based on the risk factors associated with the property and the policyholder's history.
