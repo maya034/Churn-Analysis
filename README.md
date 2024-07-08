@@ -178,3 +178,9 @@ Confusion Matrix:
 [[  0   0   4]
  [  0  51   2]
  [  0   1 242]]
+
+
+
+
+
+ https://www.dezeen.com/2019/01/04/north-fork-bluff-house-long-island-res4/
