@@ -184,3 +184,94 @@ Confusion Matrix:
 
 
  https://www.dezeen.com/2019/01/04/north-fork-bluff-house-long-island-res4/
+# Create a new presentation
+presentation = Presentation()
+
+# Add a title slide
+title_slide_layout = presentation.slide_layouts[0]
+slide = presentation.slides.add_slide(title_slide_layout)
+title = slide.shapes.title
+subtitle = slide.placeholders[1]
+
+title.text = "Mayank Kumar"
+subtitle.text = "Profile"
+
+# Add a slide for the summary and key projects
+bullet_slide_layout = presentation.slide_layouts[1]
+slide = presentation.slides.add_slide(bullet_slide_layout)
+shapes = slide.shapes
+title_shape = shapes.title
+body_shape = shapes.placeholders[1]
+
+title_shape.text = "Summary and Key Projects"
+
+# Add the content to the slide
+tf = body_shape.text_frame
+p = tf.add_paragraph()
+p.text = "Summary\nAnalytics professional with 3+ years of experience in domain of analytics - predictive as well as descriptive, data and information management."
+
+p = tf.add_paragraph()
+p.text = "\nKey Projects"
+p.level = 0
+
+# Adding Fire Insurance Risk Score at the top
+projects = [
+    {
+        "title": "Fire Insurance Risk Score",
+        "details": """
+Tags: Research, Methodology, Risk Scoring
+Objective: To develop a risk scoring model for fire insurance specific to US properties by researching competitors and creating a unique methodology.
+Data Preparation: Conducted extensive research on competitor methodologies and existing risk scoring models in the industry. Collected and analyzed relevant data including historical fire incidents, property characteristics, and geographical factors.
+Analysis: Explored various methods and techniques to develop an accurate risk score. Conducted multiple experiments and evaluations to identify the most effective approach.
+Outcome: Successfully developed a robust risk scoring model that provides accurate fire risk assessments for US properties. The model incorporates comprehensive data analysis and competitor insights, ensuring reliable risk evaluations.
+""".strip()
+    },
+    {
+        "title": "Citroen brand sentiment analysis",
+        "details": """
+Tags: EDA, Python, Binary Classification, NLP, NER, Spacy
+Objective: To predict the sentiment of twitter users associated with a particular tweet of Citroen brand to devise better marketing strategy for the brand.
+Data preparation: Data was fetched from twitter, the dataset had features such as username, location, screen name, tweet at, the original tweet, etc. We had used pipelines on the data such as text mining, text normalization, text vectorization in text mining we did basic EDA of original tweet feature such that checking often used words via word cloud. In Text Normalization, we implemented several text preprocessing techniques such as text cleaning (Replacing RT tag, replaced emojis with meaningful text, ...
+Data analysis: Later in-Text Vectorization, we used TFIDF to convert all the meaningful words into a sparse matrix. Generated optimal document words sparse matrix.
+Model deployment: Experimented with different classification algorithms such as Random Forest, XGBoost to identify the feedback of Users and obtained 0.75 as F1 score which was considered as our evaluation metric.
+""".strip()
+    },
+    {
+        "title": "Health insurance cross sale prediction",
+        "details": """
+Tags: EDA, Hyperparameter Tuning, SHAP, GridsarearCV, AUC-ROC, Logistic Regression, XGBoost, Random Forest, Feature Engineering, F1 Score, Recall, Precision
+Objective: To prognosticate whether the policy holder from past years will additionally be intrigued with vehicle insurance provided by the company.
+Data Preparation: Merged 5 different dataset (yes & no - vehicle data, policy data, customer data, etc.) into a unified master dataset. We had features such as vehicle age, demographic age, region code, policy premium, surrounding channel, policy sales channel, previously insured, avg time to settle a claim, avg cost per claim, annual rate, etc. Organized the data by filling out the missing values from different data set and replacing errors.
+Data analysis: Dataset was imbalanced with target 0.85% and target 1 is 15%. So, we used SMOTE to oversample the minority class. Reduced the count of relevant features to 30 by merging few of them and removing less important features.
+Predictive modelling: Developed binary classification algorithm such as logistic regression, random forest and XG boost and carried out hyperparameter tuning using GridSearchCV optimization and achieved an F1 score of 72%.
+""".strip()
+    },
+    {
+        "title": "Quality Site Visitors",
+        "details": """
+Tags: Data Analysis, SQL, Python, Pandas, Big query, Digital Marketing
+Objective: To understand the site analytics for the Adobe warehouse site and analyze the site score.
+Data Preparation: Pulled out data using SQL from Adobe Data Warehouse and stored it in Big Query for further analysis. We required few data from the trackers for newly advertisers such as user Id, location, number of visits on site, visit date, etc.
+Data Analysis: Used Shapely method to understand conversion activities and touch points based on daily site count contribution to conversion. Also, worked on building an intuition that a particular channel is better than other. We build a pipeline where the advertiser need not just pay activity Ids, total activity Ids, site Ids, etc. but have all Ids converted. We get a visualization of touchpoints analysis showing all the touchpoints (site) with shapely scores.
+""".strip()
+    }
+]
+
+for project in projects:
+    p = tf.add_paragraph()
+    p.text = project["title"]
+    p.level = 1
+    p = tf.add_paragraph()
+    p.text = project["details"]
+    p.level = 2
+
+# Ensure the text fits within a single page
+for paragraph in tf.paragraphs:
+    if len(paragraph.text) > 1000:
+        paragraph.text = paragraph.text[:1000] + "..."
+
+# Save the presentation
+updated_ppt_path = "/mnt/data/Updated_Mayank_Kumar_Profile_Top_Fire.pptx"
+presentation.save(updated_ppt_path)
+
+updated_ppt_path
