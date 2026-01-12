@@ -297,3 +297,57 @@ updated_ppt_path
 
 
 
+Hi Raunaq,
+I’ve completed and submitted my year-end goal comments in the system. When you get a chance, please do have a look.
+
+I also wanted to reconnect on the discussion we had last year regarding role progression and compensation. Having completed close to three years at EXL and taking on increased ownership and responsibilities, I’m keen to understand the next steps and your guidance on growth, promotion, and a commensurate hike this cycle.
+
+Looking forward to your feedback. Thanks.
+
+
+Hi Raunaq,
+I’ve completed and submitted my year-end goal comments. Please let me know whenever you get a chance to review them.
+
+I also wanted to follow up on our discussion from last year around growth and progression. It’s been close to three years at EXL now, and I’ve taken on more ownership and responsibilities. I’d really appreciate your guidance on promotion and a suitable hike this cycle.
+
+Thanks.
+
+
+
+
+
+
+
+Employee Comments – Compliance
+
+I have consistently adhered to EXL’s Code of Conduct, company policies, and all client-specific requirements throughout the year. All mandatory compliance and security trainings were completed within timelines. I ensured adherence to defined procedures, data governance standards, and delivery timelines, with no compliance or conduct-related issues raised during the review period.
+
+
+Employee Comments – Development & Capability Building
+
+I have built strong functional understanding of the email campaign process and shared this knowledge by conducting knowledge transfer sessions for team members, including training Abhishek on the end-to-end workflow. I also supported new joiners during onboarding by helping them set up required tools, understand client-specific procedures, and get familiar with the technical and process requirements. These efforts helped ensure smoother transitions and continuity within the team.
+
+
+
+Employee Comments – Upskill Trainings
+
+I actively participated in relevant trainings conducted on the HIG engagement and broader technical upskilling areas, including GitHub, Linux, data engineering concepts, and cloud fundamentals. I have been applying these learnings in my day-to-day work, particularly while exploring automation opportunities for the email process to improve efficiency and reduce manual effort. I continue to focus on strengthening my technical skillset to better support ongoing and future project requirements.
+
+
+Employee Comments – Client Satisfaction
+
+I have received positive feedback from the client for my work on the email process, particularly around accuracy, timeliness, and clarity of deliverables. Presentations and final outputs shared with the client stakeholders were well received and met evaluation expectations. I continue to work closely with the client and internal managers on exploring automation opportunities for the email process and am actively building the required technical understanding to support these initiatives and enhance overall client value.
+
+
+Employee Comments – Communication
+
+I have consistently communicated information clearly and accurately during the email process through well-structured and concise emails. I proactively raised questions and clarifications with the client whenever required and maintained effective verbal communication during discussions to ensure alignment. This helped in avoiding ambiguity, ensuring smooth execution, and maintaining clarity across stakeholders.
+
+
+Overall Summary
+
+Over the past year, I have demonstrated strong ownership and consistency in delivering high-quality outcomes across the HIG Marketing engagement. I independently managed critical components of the email process, handled ad-hoc client requirements, supported knowledge transfer within the team, and actively contributed toward process improvements and automation initiatives. I have consistently met delivery timelines while maintaining accuracy, compliance, and positive client feedback.
+
+With close to three years at EXL and continued growth in my role as Assistant Manager – Data Science, I have progressively taken on responsibilities aligned with higher expectations, including end-to-end ownership, stakeholder communication, and mentoring support. I have also been actively upskilling in relevant technical areas to strengthen my contribution toward scalable and efficient solutions.
+
+Based on prior discussions around career progression, I remain keen to continue growing within EXL and take on broader responsibilities at the Manager level. I believe my performance, ownership mindset, and commitment to continuous improvement position me well for the next level, and I look forward to feedback and guidance on progression and compensation aligned with my contributions.
