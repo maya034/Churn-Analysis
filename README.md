@@ -344,10 +344,16 @@ Employee Comments – Communication
 I have consistently communicated information clearly and accurately during the email process through well-structured and concise emails. I proactively raised questions and clarifications with the client whenever required and maintained effective verbal communication during discussions to ensure alignment. This helped in avoiding ambiguity, ensuring smooth execution, and maintaining clarity across stakeholders.
 
 
-Overall Summary
 
-Over the past year, I have demonstrated strong ownership and consistency in delivering high-quality outcomes across the HIG Marketing engagement. I independently managed critical components of the email process, handled ad-hoc client requirements, supported knowledge transfer within the team, and actively contributed toward process improvements and automation initiatives. I have consistently met delivery timelines while maintaining accuracy, compliance, and positive client feedback.
+Subject: Update on Year-End Goal Comments Submission
 
-With close to three years at EXL and continued growth in my role as Assistant Manager – Data Science, I have progressively taken on responsibilities aligned with higher expectations, including end-to-end ownership, stakeholder communication, and mentoring support. I have also been actively upskilling in relevant technical areas to strengthen my contribution toward scalable and efficient solutions.
+Hi Mehak,
 
-Based on prior discussions around career progression, I remain keen to continue growing within EXL and take on broader responsibilities at the Manager level. I believe my performance, ownership mindset, and commitment to continuous improvement position me well for the next level, and I look forward to feedback and guidance on progression and compensation aligned with my contributions.
+I wanted to inform you that I was unable to update my year-end goal comments earlier as I have been undergoing a medical procedure and am currently hospitalized. Due to this, I was not actively available for some time and have been working intermittently whenever my health permitted.
+
+I have now completed and submitted my year-end goal comments today. I hope this delay will not be an issue, given the circumstances.
+
+Thank you for your understanding.
+
+Best regards,
+Mayank Kumar
