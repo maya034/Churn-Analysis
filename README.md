@@ -317,43 +317,51 @@ Thanks.
 
 
 
+-- -------------------------------------------------------
+-- File: select-inforce-policies-from-chub-by-client-id.sql
+-- Cell 150 in old code.
+-- -------------------------------------------------------
 
-Employee Comments – Compliance
+!print -------------------------------------------------------
+!print -- Table: emsel_inforce_policies_from_chub_by_client_id
+!print -- Time: 5 seconds.
+!print -------------------------------------------------------
 
-I have consistently adhered to EXL’s Code of Conduct, company policies, and all client-specific requirements throughout the year. All mandatory compliance and security trainings were completed within timelines. I ensured adherence to defined procedures, data governance standards, and delivery timelines, with no compliance or conduct-related issues raised during the review period.
+!set quiet=True
 
+CREATE OR REPLACE TABLE emsel_inforce_policies_from_chub_by_client_id AS
+SELECT DISTINCT
+    a.client_id                        client_id,
+    a.policy_nbr                       policy_nbr,
+    a.plcy_efdt                        pol_eff_dt,
+    a.plcy_exdt                        pol_exp_dt,
+    NULL                               qcn,
+    upper(b.rev_email_addr)            acct_email_addr,
+    NULL                               first_nm,
+    NULL                               last_nm,
+    a.named_insured_state_cd           nm_insd_st_cd,
+    NULL                               secnd_nm_insd_prty_id,
+    1                                  is_inforce,
+    'CHUB'                             src_sys_cd,
+    NULL                               me_dt
+FROM PRD_ENT_CHUB_DB.EDW_DM_DLV_PL.CUST_HUB_INFORCE_PL_POL_VW a,
+    (SELECT DISTINCT
+         cp_extrnl_sys_key_id,
+         rev_email_addr
+     FROM PRD_ENT_CHUB_DB.EDW_DM_DLV_PL.CUST_HUB_EMAIL_PL_VW
+     WHERE rev_email_valid_ind = 'Y'
+    ) b
+WHERE lob = 'AUTO'
+AND   a.client_id = b.cp_extrnl_sys_key_id(+)
+;
 
-Employee Comments – Development & Capability Building
+!set quiet=False
 
-I have built strong functional understanding of the email campaign process and shared this knowledge by conducting knowledge transfer sessions for team members, including training Abhishek on the end-to-end workflow. I also supported new joiners during onboarding by helping them set up required tools, understand client-specific procedures, and get familiar with the technical and process requirements. These efforts helped ensure smoother transitions and continuity within the team.
+select count(*) row_count
+from emsel_inforce_policies_from_chub_by_client_id;
 
-
-
-Employee Comments – Upskill Trainings
-
-I actively participated in relevant trainings conducted on the HIG engagement and broader technical upskilling areas, including GitHub, Linux, data engineering concepts, and cloud fundamentals. I have been applying these learnings in my day-to-day work, particularly while exploring automation opportunities for the email process to improve efficiency and reduce manual effort. I continue to focus on strengthening my technical skillset to better support ongoing and future project requirements.
-
-
-Employee Comments – Client Satisfaction
-
-I have received positive feedback from the client for my work on the email process, particularly around accuracy, timeliness, and clarity of deliverables. Presentations and final outputs shared with the client stakeholders were well received and met evaluation expectations. I continue to work closely with the client and internal managers on exploring automation opportunities for the email process and am actively building the required technical understanding to support these initiatives and enhance overall client value.
-
-
-Employee Comments – Communication
-
-I have consistently communicated information clearly and accurately during the email process through well-structured and concise emails. I proactively raised questions and clarifications with the client whenever required and maintained effective verbal communication during discussions to ensure alignment. This helped in avoiding ambiguity, ensuring smooth execution, and maintaining clarity across stakeholders.
-
-
-
-Subject: Update on Year-End Goal Comments Submission
-
-Hi Mehak,
-
-I wanted to inform you that I was unable to update my year-end goal comments earlier as I have been undergoing a medical procedure and am currently hospitalized. Due to this, I was not actively available for some time and have been working intermittently whenever my health permitted.
-
-I have now completed and submitted my year-end goal comments today. I hope this delay will not be an issue, given the circumstances.
-
-Thank you for your understanding.
-
-Best regards,
-Mayank Kumar
+select *
+from emsel_inforce_policies_from_chub_by_client_id
+where client_id is not null
+and   acct_email_addr is not null
+order by 1 desc limit 5;
