@@ -365,3 +365,89 @@ from emsel_inforce_policies_from_chub_by_client_id
 where client_id is not null
 and   acct_email_addr is not null
 order by 1 desc limit 5;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Good. Now run this UNION file:
+
+```sql
+CREATE OR REPLACE TABLE emsel_inforce_policies_by_client_id AS
+
+SELECT DISTINCT
+    client_id,
+    policy_nbr,
+    pol_eff_dt,
+    pol_exp_dt,
+    qcn,
+    email_addr,
+    first_nm,
+    last_nm,
+    nm_insd_st_cd,
+    secnd_nm_insd_prty_id,
+    is_inforce,
+    src_sys_cd,
+    me_dt
+FROM emsel_inforce_policies_from_chub_by_client_id
+
+UNION
+
+SELECT DISTINCT
+    client_id,
+    policy_nbr,
+    pol_eff_dt,
+    pol_exp_dt,
+    qcn,
+    email_addr,
+    first_nm,
+    last_nm,
+    nm_insd_st_cd,
+    secnd_nm_insd_prty_id,
+    is_inforce,
+    src_sys_cd,
+    me_dt
+FROM emsel_inforce_policies_from_dcpa_by_client_id
+;
+
+select count(*) row_count from emsel_inforce_policies_by_client_id;
+```
+
+Share the row count. 📸
+
+
+
+
+
+
+
+
+
+
+
+
+
