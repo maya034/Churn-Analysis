@@ -451,3 +451,117 @@ Share the row count. 📸
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE OR REPLACE TABLE emsel_cancelled_policies_by_client_id AS
+
+SELECT DISTINCT
+    client_id,
+    policy_nbr,
+    rev_email_addr          email_addr,
+    sfmc_held,
+    matched_ind,
+    first_nm,
+    last_nm,
+    canc_eff_dt,
+    nm_insd_st_cd,
+    delivery_status_desc,
+    internal_engagement_desc,
+    external_engagement_desc,
+    internal_recency_dt,
+    external_recency_dt,
+    email_domain_owner,
+    ap_best_day_of_wk_nm,
+    ap_best_time_of_day,
+    ap_optimal_send_time,
+    ap_frequency,
+    audience_pnt_score_num,
+    sfmc_email_status,
+    is_cancelled,
+    src_sys_cd,
+    NULL                    status
+FROM emsel_cancelled_policies_from_chub_by_client_id
+
+UNION
+
+SELECT DISTINCT
+    client_id,
+    policy_nbr,
+    acct_email_addr         email_addr,
+    NULL                    sfmc_held,
+    NULL                    matched_ind,
+    first_nm,
+    last_nm,
+    canc_eff_dt,
+    state_cd                nm_insd_st_cd,
+    NULL                    delivery_status_desc,
+    NULL                    internal_engagement_desc,
+    NULL                    external_engagement_desc,
+    NULL                    internal_recency_dt,
+    NULL                    external_recency_dt,
+    NULL                    email_domain_owner,
+    NULL                    ap_best_day_of_wk_nm,
+    NULL                    ap_best_time_of_day,
+    NULL                    ap_optimal_send_time,
+    NULL                    ap_frequency,
+    NULL                    audience_pnt_score_num,
+    NULL                    sfmc_email_status,
+    is_cancelled,
+    src_sys_cd,
+    status
+FROM emsel_cancelled_policies_from_dcpa_by_client_id
+;
+
+select count(*) row_count from emsel_cancelled_policies_by_client_id;
+select * from emsel_cancelled_policies_by_client_id order by 1 desc limit 5;
+
+
+
+
+
+
+
