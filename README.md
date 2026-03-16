@@ -565,3 +565,77 @@ select * from emsel_cancelled_policies_by_client_id order by 1 desc limit 5;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT
+    DISTINCT CF.ACCOUNT_ID          client_id,
+    CF.POL_NBR                      policy_nbr,
+    AD.ACCT_EMAIL_ADDR              acct_email_addr,
+    NULL                            sfmc_held,
+    NULL                            matched_ind,
+    AD.ACCT_FIRST_NM                first_nm,
+    AD.ACCT_LAST_NM                 last_nm,
+    NULL                            canc_eff_dt,
+    NULL                            state_cd,
+    NULL                            delivery_status_desc,
+    NULL                            internal_engagement_desc,
+    NULL                            external_engagement_desc,
+    NULL                            internal_recency_dt,
+    NULL                            external_recency_dt,
+    NULL                            email_domain_owner,
+    NULL                            ap_best_day_of_wk_nm,
+    NULL                            ap_best_time_of_day,
+    NULL                            ap_optimal_send_time,
+    NULL                            ap_frequency,
+    NULL                            audience_pnt_score_num,
+    NULL                            sfmc_email_status,
+    1                               is_cancelled,
+    'PLDW'                          src_sys_cd,
+    POLICY_TAB.POL_STATUS_CD        status
+FROM
+    PRD_PL_DB.APP_PLA_CLIENT.CONTRACT_FACT CF,
+    PRD_PL_DB.APP_PLA_CLIENT.ACCOUNT_DIM AD,
+    POLICY_TAB
+WHERE
+    AD.ACCOUNT_ID = CF.ACCOUNT_ID
+    AND CF.REGIONAL_OFFICE_CD || CF.POL_SYMBOL_CD || CF.POL_NBR = POLICY_TAB.POL_ID
+    AND POLICY_TAB.BUS_UNIT_ABBR = 'AARP'
+
+
+
+
+
+
+
+
+
