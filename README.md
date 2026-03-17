@@ -633,9 +633,54 @@ WHERE
 
 
 
+1. b.rev_email_addr → aliased as acct_email_addr
+2. a.nm_insd_st_cd  → aliased as state_cd
+3. NULL status      → added
+4. NULL regional_office_cd → added
+5. NULL pol_symbol_cd      → added
+6. NULL acct_home_phone_nbr → added
+7. NULL bus_unit_abbr       → added
+8. CAST(client_id AS VARCHAR) → added for data type match
 
 
+1. Columns reordered to match CHUB exactly
+2. NULL sfmc_held, matched_ind added
+3. NULL for all AP scoring columns added
+4. NULL regional_office_cd → added
+5. NULL pol_symbol_cd      → added
+6. NULL acct_home_phone_nbr → added
+7. NULL bus_unit_abbr       → added
+8. CAST(client_id AS VARCHAR) → added for data type match
+
+1. SELECT reordered to match CHUB/DCPA column order
+2. NULL added for all missing columns
+3. Real values kept for:
+   CF.REGIONAL_OFFICE_CD
+   CF.POL_SYMBOL_CD
+   AD.ACCT_HOME_PHONE_NBR
+   POLICY_TAB.BUS_UNIT_ABBR
+4. CAST(account_id AS VARCHAR) → added as client_id
+5. 1 is_cancelled added
+6. 'PLDW' src_sys_cd added
+
+CHUB:   5,536,955
+DCPA:     393,780
+PLDW:   6,534,303
+─────────────────
+TOTAL: 12,465,038
 
 
+"I completed the cancelled policies UNION table.
+All 3 sources — CHUB, DCPA, and PLDW — are now
+combined into emsel_cancelled_policies_by_client_id
+using SELECT * as requested.
 
+Key fixes needed were:
+1. Column alignment across all 3 tables
+2. Data type mismatch on client_id — PLDW uses
+   alphanumeric IDs while CHUB/DCPA use numeric
+   — resolved with VARCHAR cast
+3. Had to re-run all 3 branch tables before
+   the UNION could run cleanly
 
+Final count: 12.4 million cancelled records." ✅
