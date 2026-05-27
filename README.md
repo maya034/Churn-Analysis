@@ -670,6 +670,229 @@ PLDW:   6,534,303
 TOTAL: 12,465,038
 
 
+
+WinBack Campaign — Business Data Sources Document
+
+Overview
+
+The WinBack email campaign targets former AARP Auto Insurance customers who have cancelled their policy and may be ready to return. To identify and select the right people to mail, the campaign pulls data from multiple sources. Each source serves a specific purpose in deciding who should receive the email and who should not.
+
+Data Source 1 — Campaign Split File
+
+What it is:
+This is the starting point of the entire process. It is a file that contains the full eligible population across all campaigns — WinBack, ARQ, MO, and GMPQ. Every person who could potentially be mailed for any AARP Auto campaign is in this file.
+
+What we pull from it:
+
+	•	Individual and household identifiers so we can track each person uniquely
+	•	The person’s age
+	•	Their state and ZIP code
+	•	Which campaign they have been assigned to — WinBack in this case
+	•	Whether their ZIP code is in a non-target area for Auto insurance
+	•	Whether they are an active AARP member or a recently lapsed member
+	•	The date they were last declined for AARP Auto insurance
+	•	Their DMA opt-out status — whether they have asked not to be contacted
+	•	Their WinBack cancel source — why they originally cancelled
+
+Why we need it:
+This file is the master population. Without it we have no one to mail. Everything else we do is about filtering this population down to the right people.
+
+Current format: Was previously an Excel file. Has now been moved to a Snowflake table.
+
+Data Source 2 — Marketing Restrictions Parameter File
+
+What it is:
+An Excel file maintained by the marketing team that contains campaign-level rules and settings. It has multiple sheets each serving a different purpose.
+
+What we pull from it:
+
+Sheet 1 — Marketing Restrictions WB:
+
+	•	The mail selection date — this is the anchor date that drives every other date calculation in the campaign. For example the 3 year auto decline lookback and the 6 month member lapse calculation both start from this date.
+
+Sheet 2 — Selection Score:
+
+	•	The propensity score model names to use for this campaign
+	•	The score cutoff thresholds — the minimum score a person needs to be eligible for the WinBack email vs being reserved for a different channel
+
+Why we need it:
+The mail date and score cutoffs change every month. Having them in a parameter file means the campaign team can update them without touching the code.
+
+Data Source 3 — Individual Propensity Scores
+
+What it is:
+A Snowflake table maintained by the data science team containing propensity model scores for every individual. These scores predict how likely someone is to purchase AARP Auto insurance.
+
+Table: HIG_INDIVIDUAL_SUMMARY
+
+What we pull from it:
+
+	•	Individual identifier to join back to the main population
+	•	PLM score — predicts likelihood of purchasing through the preferred marketing channel
+	•	PRM score — predicts likelihood of purchasing through the retention marketing channel
+	•	WinBack campaign specific score
+	•	Policy cancel or non-renewal code — indicates why the person’s policy ended
+
+Why we need it:
+Two purposes. First we use the PLM and PRM scores to avoid mailing people who are already being targeted by a higher priority channel — if someone has a high enough score they may already be in a direct outreach program and emailing them would cause channel conflict. Second the cancel code tells us whether the person left voluntarily or was non-renewed — certain cancel codes mean they should not receive a WinBack email at all.
+
+Data Source 4 — Residence Level Fallback Scores
+
+What it is:
+A second Snowflake table that contains propensity scores calculated at the address level rather than the individual level. This is used as a backup when an individual does not have their own score.
+
+Table: MODEL_SCORES_STATIC
+
+What we pull from it:
+
+	•	Address identifier to join back
+	•	SCORE43 at residence level
+	•	SCORE45 at residence level
+
+Why we need it:
+Not every individual in the population will have a score in the HIG_INDIVIDUAL_SUMMARY table. Rather than excluding these people entirely, we look at whether other people at the same address have scores and use that as a proxy. This ensures we do not unfairly suppress people simply because their individual score has not been calculated yet.
+
+Data Source 5 — Home Insurance ZIP Code List
+
+What it is:
+A Snowflake table that contains ZIP codes associated with home insurance products.
+
+Table: ZIP_SUPP
+
+What we pull from it:
+
+	•	ZIP codes where the line of business is Home insurance
+
+Why we need it:
+We add a HOME_FLAG to every record in the final output. This flag tells the downstream team whether the person’s ZIP code is primarily associated with home insurance. This is used for reporting and channel coordination purposes — it does not filter anyone out of the mailing.
+
+Data Source 6 — WinBack Do Not Mail List
+
+What it is:
+A flat file containing a specific list of individual IDs who should never receive a WinBack email regardless of any other criteria. This list is campaign specific and is maintained separately from the main suppression rules.
+
+File: wb_5448_suppression_id.csv
+
+What we pull from it:
+
+	•	Individual IDs to suppress
+
+Why we need it:
+There are business and legal reasons why certain individuals must be excluded from specific campaigns. This file gives the campaign team a simple way to add people to the WinBack suppression list without changing any code or rules.
+
+Data Source 7 — Conversion File
+
+What it is:
+A file containing the most recent AARP Auto quote date for every address in the eligible population. This is updated monthly.
+
+File: Conversion.pkl
+
+What we pull from it:
+
+	•	Address identifier to join back
+	•	Date of the most recent AARP Auto quote at that address
+
+Why we need it:
+If someone at an address has already requested a quote in the last 3 months we do not want to send them a WinBack email — they are already in the consideration process. This suppression prevents us from over-contacting people who are already engaged.
+
+Data Source 8 — Age Configuration File
+
+What it is:
+A JSON configuration file that stores the minimum and maximum age rules for each campaign.
+
+File: age_config.json
+
+What we pull from it:
+
+	•	Minimum age for WinBack mailing — 50
+	•	Maximum age for WinBack mailing — 82
+
+Why we need it:
+AARP Auto insurance has age eligibility requirements. People outside the 50 to 82 age band are not eligible for the product regardless of any other criteria. Having this in a configuration file rather than hardcoded in the programme means the marketing team can update the age bands without a code change.
+
+Data Source 9 — Direct Mail File
+
+What it is:
+A file containing the addresses of everyone who is receiving a direct mail piece for the WinBack campaign in the same cycle.
+
+File: WB_MAIL_{month}{year}.csv
+
+What we pull from it:
+
+	•	Address identifiers
+
+Why we need it:
+We add an EM_DM_Ind flag to every record in the final email output. This flag indicates whether the same address is also receiving a direct mail piece. Y means they are getting both email and direct mail. N means they are getting email only. This is used by the campaign team to understand the overlap between channels and for reporting purposes.
+
+How All The Sources Fit Together
+
+Campaign Split File
+        │
+        ▼
+Filter to WinBack population only
+        │
+        ▼
+Apply age rule from JSON config (50-82)
+        │
+        ▼
+Remove non-target ZIPs (from campaign split file)
+        │
+        ▼
+Remove recent auto declines (3 year lookback)
+        │
+        ▼
+Remove DMA opt-outs (from campaign split file)
+        │
+        ▼
+Remove do-not-mail individuals (from 5448 file)
+        │
+        ▼
+Classify addresses as Member or Non-Member households
+        │
+        ▼
+Attach propensity scores (from HIG_INDIVIDUAL_SUMMARY)
+Fill missing scores from residence level (from MODEL_SCORES_STATIC)
+        │
+        ▼
+Remove high-score individuals already in other channels
+        │
+        ▼
+Remove bad cancel codes (from HIG_INDIVIDUAL_SUMMARY)
+        │
+        ▼
+Remove recent quote activity (from Conversion file)
+        │
+        ▼
+Add HOME_FLAG (from ZIP_SUPP)
+Add EM_DM_Ind flag (from Direct Mail file)
+        │
+        ▼
+Final WinBack email output file
+
+
+Summary Table
+
+
+
+|#|Data Source                 |Type           |What We Get                                            |Why We Need It                               |
+|-|----------------------------|---------------|-------------------------------------------------------|---------------------------------------------|
+|1|Campaign Split File         |Snowflake table|Full eligible population with all individual attributes|Starting population for the campaign         |
+|2|Marketing Restrictions Excel|Excel file     |Mail date and score cutoff thresholds                  |Monthly campaign settings                    |
+|3|HIG_INDIVIDUAL_SUMMARY      |Snowflake table|Propensity scores and cancel codes                     |Score suppression and cancel code suppression|
+|4|MODEL_SCORES_STATIC         |Snowflake table|Residence level fallback scores                        |Fill missing individual scores               |
+|5|ZIP_SUPP                    |Snowflake table|Home insurance ZIP codes                               |HOME_FLAG on output                          |
+|6|WinBack Do Not Mail List    |CSV file       |Individual IDs to exclude                              |Campaign specific suppression list           |
+|7|Conversion File             |Pickle file    |Last quote date per address                            |Suppress recent quote activity               |
+|8|Age Config File             |JSON file      |Min and max age rules                                  |Age eligibility suppression                  |
+|9|Direct Mail File            |CSV file       |Addresses in direct mail                               |EM_DM_Ind flag on output                     |
+
+This document is ready to share with the business team and client. It explains every data source in plain business language without any technical code. Would you like me to put this in a Word document?
+
+
+
+
+
+
 "I completed the cancelled policies UNION table.
 All 3 sources — CHUB, DCPA, and PLDW — are now
 combined into emsel_cancelled_policies_by_client_id
