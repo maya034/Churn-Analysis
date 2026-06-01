@@ -898,18 +898,36 @@ Subject:
 Request to set Complan Options to Zero — VMRA, Driver Wages & Telephone Reimbursement
 
 
+Subject: Urgent Request – Complan Option Reversal & May Salary Recovery
+
 Hi Team,
-I am writing regarding my Compensation Plan configuration that was enabled during the April 2026 increment cycle.
-During the Complan submission window, I had set the following components to a reimbursement amount instead of keeping them at zero:
 
-Vehicle Running & Maintenance (VMRA) — ₹5,000/month
-Driver Wages — ₹3,000/month
-Telephone Reimbursement — ₹1,000/month
+I hope this message finds you well. I am writing to you with an urgent request regarding my Compensation Plan configuration, and I sincerely request your understanding and earliest possible assistance.
 
-As a result, these amounts have been deducted from my monthly cash salary and moved to reimbursement buckets. Since I do not have expenses to claim against these components, I am not benefiting from this and my net take-home has reduced significantly — even below my pre-increment salary.
-I spoke to the payroll team today and was advised to raise this ticket with the following requests:
-Request 1: Set the Complan Options for all three components (VMRA, Driver Wages, Telephone Reimbursement) to zero permanently, so they are included in my monthly taxable salary going forward.
-Request 2: The amount deducted in May 2026 payroll due to these components should be recovered and paid in the June 2026 salary cycle.
-Request 3: If the Complan submission window has closed, kindly enable the Allowance Option Form for me so I can make this change myself, OR make the change directly from your end.
-Request you to please process this before the June 2026 payroll cutoff.
-Thank you.
+During the Complan submission window in April 2026 (post-increment cycle), I had inadvertently set the following components to a reimbursement amount instead of keeping them at zero:
+
+• Vehicle Running & Maintenance (VMRA)
+• Driver Wages
+• Telephone Reimbursement
+
+As a result, these amounts have been deducted from my monthly cash salary and moved to reimbursement buckets. Since I do not have valid expenses to claim against these components, I am unable to recover this amount through reimbursements either.
+
+This has caused my May 2026 net take-home salary to drop significantly — to a level even lower than my pre-increment salary. I want to be transparent that this situation has put me under considerable financial stress, as I have multiple active EMI obligations that are planned around my expected monthly salary. The unexpected shortfall has made it extremely difficult for me to meet these commitments on time this month.
+
+I have already raised this concern on the Allsec portal as well. I spoke to the Payroll team and was advised to write in formally with the following requests:
+
+Request 1 — Permanent Complan Change:
+Please set the Complan Options for VMRA, Driver Wages, and Telephone Reimbursement to zero, so that these amounts are included in my monthly taxable cash salary going forward.
+
+Request 2 — Recovery in June Cycle:
+The amount deducted in May 2026 due to these components should ideally be recovered and credited in the June 2026 salary cycle, given the financial hardship caused.
+
+Request 3 — Allowance Option Form Access:
+If the Complan submission window has already closed, kindly either enable the Allowance Option Form for me so I can make this change myself, or make the change directly from your end.
+
+I completely understand this may have been my own oversight during the submission, and I take full responsibility for that. However, I genuinely request your support in resolving this before the June 2026 payroll cutoff, so that my salary is restored to the correct level.
+
+Thank you so much for your time and understanding.
+
+Warm regards,
+Mayank
