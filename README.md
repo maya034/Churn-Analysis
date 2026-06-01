@@ -893,17 +893,23 @@ This document is ready to share with the business team and client. It explains e
 
 
 
-"I completed the cancelled policies UNION table.
-All 3 sources — CHUB, DCPA, and PLDW — are now
-combined into emsel_cancelled_policies_by_client_id
-using SELECT * as requested.
+Subject:
 
-Key fixes needed were:
-1. Column alignment across all 3 tables
-2. Data type mismatch on client_id — PLDW uses
-   alphanumeric IDs while CHUB/DCPA use numeric
-   — resolved with VARCHAR cast
-3. Had to re-run all 3 branch tables before
-   the UNION could run cleanly
+Request to set Complan Options to Zero — VMRA, Driver Wages & Telephone Reimbursement
 
-Final count: 12.4 million cancelled records." ✅
+
+Hi Team,
+I am writing regarding my Compensation Plan configuration that was enabled during the April 2026 increment cycle.
+During the Complan submission window, I had set the following components to a reimbursement amount instead of keeping them at zero:
+
+Vehicle Running & Maintenance (VMRA) — ₹5,000/month
+Driver Wages — ₹3,000/month
+Telephone Reimbursement — ₹1,000/month
+
+As a result, these amounts have been deducted from my monthly cash salary and moved to reimbursement buckets. Since I do not have expenses to claim against these components, I am not benefiting from this and my net take-home has reduced significantly — even below my pre-increment salary.
+I spoke to the payroll team today and was advised to raise this ticket with the following requests:
+Request 1: Set the Complan Options for all three components (VMRA, Driver Wages, Telephone Reimbursement) to zero permanently, so they are included in my monthly taxable salary going forward.
+Request 2: The amount deducted in May 2026 payroll due to these components should be recovered and paid in the June 2026 salary cycle.
+Request 3: If the Complan submission window has closed, kindly enable the Allowance Option Form for me so I can make this change myself, OR make the change directly from your end.
+Request you to please process this before the June 2026 payroll cutoff.
+Thank you.
