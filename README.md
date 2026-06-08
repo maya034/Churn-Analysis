@@ -892,42 +892,7 @@ This document is ready to share with the business team and client. It explains e
 
 
 
-
-Subject:
-
-Request to set Complan Options to Zero — VMRA, Driver Wages & Telephone Reimbursement
-
-
-Subject: Urgent Request – Complan Option Reversal & May Salary Recovery
-
-Hi Team,
-
-I hope this message finds you well. I am writing to you with an urgent request regarding my Compensation Plan configuration, and I sincerely request your understanding and earliest possible assistance.
-
-During the Complan submission window in April 2026 (post-increment cycle), I had inadvertently set the following components to a reimbursement amount instead of keeping them at zero:
-
-• Vehicle Running & Maintenance (VMRA)
-• Driver Wages
-• Telephone Reimbursement
-
-As a result, these amounts have been deducted from my monthly cash salary and moved to reimbursement buckets. Since I do not have valid expenses to claim against these components, I am unable to recover this amount through reimbursements either.
-
-This has caused my May 2026 net take-home salary to drop significantly — to a level even lower than my pre-increment salary. I want to be transparent that this situation has put me under considerable financial stress, as I have multiple active EMI obligations that are planned around my expected monthly salary. The unexpected shortfall has made it extremely difficult for me to meet these commitments on time this month.
-
-I have already raised this concern on the Allsec portal as well. I spoke to the Payroll team and was advised to write in formally with the following requests:
-
-Request 1 — Permanent Complan Change:
-Please set the Complan Options for VMRA, Driver Wages, and Telephone Reimbursement to zero, so that these amounts are included in my monthly taxable cash salary going forward.
-
-Request 2 — Recovery in June Cycle:
-The amount deducted in May 2026 due to these components should ideally be recovered and credited in the June 2026 salary cycle, given the financial hardship caused.
-
-Request 3 — Allowance Option Form Access:
-If the Complan submission window has already closed, kindly either enable the Allowance Option Form for me so I can make this change myself, or make the change directly from your end.
-
-I completely understand this may have been my own oversight during the submission, and I take full responsibility for that. However, I genuinely request your support in resolving this before the June 2026 payroll cutoff, so that my salary is restored to the correct level.
-
-Thank you so much for your time and understanding.
-
-Warm regards,
-Mayank
+The breakdown you are looking for is available across two places.
+For the campaign-level suppression counts — ARQ, WinBack, MB PQ, GM PQ — these are tracked on the Merkle platform. After the campaign split runs and suppressions are applied, each campaign produces a final count. For the June cycle this is already available and I am sharing the waterfall sheet link for your reference. For July, the cycle has just started and the counts will be ready by the 15th or 16th. I will share the Merkle platform link for July as well once the numbers are confirmed.
+For the missing email information — this sits on the ACE side, not Merkle. I am sharing the relevant waterfall link for that separately so you can see the email-level breakdown there.
+Happy to walk you through either of these if it would help.
