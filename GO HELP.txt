@@ -1,0 +1,265 @@
+################################################################################
+# Email Selection Process
+################################################################################
+. util; announce; my bash-start
+
+sDefault="help"
+sAction=${1:-"$sDefault"}
+sEmSelP1=${2:-""} # The date parameter.
+sEmSelP2=${3:-"2"} # Any other parameter.
+
+export PLMA_TODAY=${sEmSelP1:-$PLMA_TODAY} # Date independence step #4
+
+################################################################################
+# Action descriptions
+sEmSelAll="Run everything other than installing the solution."
+sEmSelDerive="New variables are derived."
+sEmSelFeed="Feed files to Enterprise Marketing through MFT."
+sEmSelReport="Run the Excel report and mail it."
+sEmSelScore="Score the records so we know which to send."
+sEmSelSelect="Select the full universe of candidates."
+sEmSelSuppress="Suppress records based on business rules."
+
+# Select - Merkle script descriptions
+sEmSelMerklePromoHist="Select individual IDs from promo history."
+sEmSelMerkleModelScore="Select model scores (static)."
+sEmSelMerkleZipSupp="Select zip suppression list."
+sEmSelMerkleIndivSummary="Select universal individual summary."
+
+# Select - Ace script descriptions
+sEmSelAceMetrics="Run system metrics."
+sEmSelAceEmailChub="Select email addresses from CHUB by client ID."
+sEmSelAceEmailPldw="Select email addresses from PLDW by QCN."
+sEmSelAceInforceChub="Select inforce policies from CHUB by client ID."
+sEmSelAceInforceLegacyDcpa="Select inforce policies from legacy DCPA by client ID."
+sEmSelAceInforceDcpa="Select inforce policies from DCPA by client ID."
+sEmSelAceInforceUnion="Union all inforce policies by client ID."
+sEmSelAceCancelledChub="Select cancelled policies from CHUB by client ID."
+sEmSelAceCancelledDcpa="Select cancelled policies from DCPA by client ID."
+sEmSelAceCancelledPldw="Select cancelled policies from PLDW by account number."
+sEmSelAceCancelledUnion="Union all cancelled policies by client ID."
+sEmSelAceQuoteChub="Select quotes from CHUB by client ID."
+sEmSelAceQuoteDcpa="Select quotes from DCPA by client ID."
+sEmSelAceQuotePldwLegacy="Select quotes from PLDW legacy by email."
+sEmSelAceQuotePldwPrevail="Select quotes from PLDW prevail by email."
+sEmSelAceQuotePldw="Select quotes from PLDW."
+sEmSelAceEligibleUniverse="Put together all tables and build the full eligible universe."
+
+sUsage=$(cat <<EOF
+
+Execute Email Selection Process
+
+Usage: $0 <action:$sDefault> # Where action is:
+
+   MAIN FLOW:
+
+      select      $sEmSelSelect
+      derive      $sEmSelDerive
+      suppress    $sEmSelSuppress
+      score       $sEmSelScore
+      report      $sEmSelReport
+      feed        $sEmSelFeed
+
+         select
+            Merkle
+               promo_hist        $sEmSelMerklePromoHist
+               model_score       $sEmSelMerkleModelScore
+               zip_supp          $sEmSelMerkleZipSupp
+               indiv_summary     $sEmSelMerkleIndivSummary
+
+            Ace
+               metrics           $sEmSelAceMetrics
+               email_chub        $sEmSelAceEmailChub
+               email_pldw        $sEmSelAceEmailPldw
+               inforce_chub      $sEmSelAceInforceChub      [commented out]
+               inforce_leg_dcpa  $sEmSelAceInforceLegacyDcpa
+               inforce_dcpa      $sEmSelAceInforceDcpa
+               inforce_union     $sEmSelAceInforceUnion
+               cancelled_chub    $sEmSelAceCancelledChub
+               cancelled_dcpa    $sEmSelAceCancelledDcpa
+               cancelled_pldw    $sEmSelAceCancelledPldw
+               cancelled_union   $sEmSelAceCancelledUnion
+               quote_chub        $sEmSelAceQuoteChub
+               quote_dcpa        $sEmSelAceQuoteDcpa
+               quote_pldw_leg    $sEmSelAceQuotePldwLegacy
+               quote_pldw_prev   $sEmSelAceQuotePldwPrevail
+               quote_pldw        $sEmSelAceQuotePldw
+               eligible_universe $sEmSelAceEligibleUniverse
+
+   HELPER ACTIONS:
+
+      all         $sEmSelAll
+      install     $sAspectInstall
+      help        $sAspectHelp
+
+EOF
+)
+
+################################################################################
+_all() {
+
+    line1 "$sEmSelAll"
+
+    echo "Starting _all(): $(date '+%F %T')"
+    echo "Running as if it were $PLMA_TODAY."
+    echo "Running as if yesterday was $PLMA_YESTERDAY."
+    echo "Run time is < 1 minute."
+
+    _select
+    _derive
+    _suppress
+    _score
+    _report
+    _feed
+
+    snow run system-outcome-update.sql
+
+    echo "Finished _all(): $(date '+%F %T')"
+
+}
+
+################################################################################
+_select() {
+
+    line1 "$sEmSelSelect"
+
+    sEmSelP2="${1:-$sEmSelP2}" # Direct call overrides the global.
+
+    echo "Now is $(date)"
+
+    echo "--- ACE ---"
+
+    # System metrics.
+    snow run system-system_metrics.sql
+
+    # Email lookup tables.
+    snow run select-email_from_chub_by_client_id.sql
+    snow run select-email_from_pldw_by_qcn.sql
+
+    # Inforce policy data.
+    #snow run select-inforce_policies_from_chub_by_client_id.sql
+    snow run select-inforce_policies_from_legacy_dcpa_by_client_id.sql
+    snow run select-inforce_policies_from_dcpa_by_client_id.sql
+    snow run select-inforce_policies_by_client_id.sql
+
+    # Cancelled policy data.
+    snow run select-cancelled_policies_from_chub_by_client_id.sql
+    snow run select-cancelled_policies_from_dcpa_by_client_id.sql
+    snow run select-cancelled_policies_from_pldw_by_account_number.sql
+    snow run select-cancelled_policies_by_client_id.sql
+
+    # Quote data.
+    snow run select-quotes_from_chub_by_client_id.sql
+    snow run select-quotes_from_dcpa_by_client_id.sql
+    snow run select-quotes_from_pldw_legacy_by_email.sql
+    snow run select-quotes_from_pldw_prevail_by_email.sql
+    snow run select-quotes_from_pldw.sql
+
+    # Put together all tables - full eligible universe.
+    snow run select-eligible_universe.sql
+    # snow run select-delete-junk-emails.sql
+
+    echo "--- MERKLE ---"
+
+    # Promo history.
+    snow merkle select-individual_id_from_promo_hist.sql
+
+    # Model scores.
+    snow merkle select-model_scores_static.sql
+
+    # Zip suppression.
+    snow merkle select-zip_supp.sql
+
+    # Individual summary.
+    snow merkle select-universal_individual_summary_vw.sql
+
+}
+
+################################################################################
+_derive() {
+
+    line1 "$sEmSelDerive"
+
+    echo "Deriving new variables."
+
+    # TODO: Add derive SQL steps here.
+
+}
+
+################################################################################
+_suppress() {
+
+    line1 "$sEmSelSuppress"
+
+    # snow run suppress-bad-addresses.sql # Not delete, mark it.
+    # In requirements doc, make a list of all suppression labels.
+
+    snow run suppress-dns.sql
+    snow run suppress-age.sql
+    snow run suppress-waterfall.sql
+
+}
+
+################################################################################
+_score() {
+
+    line1 "$sEmSelScore"
+
+    snow run assign-test-cases.sql
+
+}
+
+################################################################################
+_report() {
+
+    line1 "$sEmSelReport"
+
+    rm -f data/report.tsv  2>/dev/null
+    rm -f data/report.xlsx 2>/dev/null
+
+    snow tsv report.sql data/report.tsv
+    excel csv2xls data/report.tsv report-template.xlsx data/report.xlsx
+    sp put data/report.xlsx "$PLMA_DATA_DELIVERY/Email Selection Process/Email Selection Report - Quote - Current.xlsx"
+    sp put data/report.xlsx "$PLMA_DATA_DELIVERY/Email Selection Process/Email Selection Report - Quote - $(date +'%F').xlsx"
+
+}
+
+################################################################################
+_feed() {
+
+    line1 "$sEmSelFeed"
+
+    evalx "snow csv feed.sql feed.csv"
+    sed -i 's/"//g' feed.csv             # Per legacy, get rid of quotes.
+    sed -i '1s/.*/\L&/' feed.csv         # Per legacy, lower case the first row.
+    evalx "mv feed.csv $PLMA_MFT/Email_Selection_Process/feed-$PLMA_TODAY.csv"
+    evalx "dir $PLMA_MFT/Email_Selection_Process/*"
+    evalx "head $PLMA_MFT/Email_Selection_Process/feed-$PLMA_TODAY.csv"
+
+}
+
+################################################################################
+_install() {
+
+    line1 "$sAspectInstall"
+
+}
+
+################################################################################
+case ${sAction} in
+
+    all)        _all ;;
+    derive)     _derive ;;
+    feed)       _feed ;;
+    help)       usage "$sUsage" ;;
+    install)    _install ;;
+    report)     _report ;;
+    score)      _score ;;
+    select)     _select ;;
+    suppress)   _suppress ;;
+    *)          usage "$sUsage" ;;
+
+esac
+
+################################################################################
+################################################################################
